@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "news": {
+            "0.0.3": {
+                "en": "add bluefox"
+            },
             "0.0.2": {
                 "en": "add coral tpu",
                 "de": "Fügen Sie Korallen-TPU hinzu",
@@ -57,7 +60,8 @@
             "zh-cn": "护卫舰"
         },
         "authors": [
-            "Bettman66 <w.zengel@gmx.de>"
+            "Bettman66 <w.zengel@gmx.de>",
+            "bluefox <dogafox@gmail.com>"
         ],
         "keywords": [
             "Video",

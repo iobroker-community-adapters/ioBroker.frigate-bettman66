@@ -1,0 +1,88 @@
+{
+    "common": {
+        "name": "frigate",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "uk": "Початкова версія",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "frigate",
+        "titleLang": {
+            "en": "frigate",
+            "de": "Fregatte",
+            "ru": "фрегат",
+            "pt": "fragata",
+            "nl": "fregat",
+            "fr": "frégate",
+            "it": "fregata",
+            "es": "fragata",
+            "pl": "fregata",
+            "uk": "фрегат",
+            "zh-cn": "护卫舰"
+        },
+        "desc": {
+            "en": "frigate",
+            "de": "Fregatte",
+            "ru": "фрегат",
+            "pt": "fragata",
+            "nl": "fregat",
+            "fr": "frégate",
+            "it": "fregata",
+            "es": "fragata",
+            "pl": "fregata",
+            "uk": "фрегат",
+            "zh-cn": "护卫舰"
+        },
+        "authors": [
+            "Bettman66 <w.zengel@gmx.de>"
+        ],
+        "keywords": [
+            "Video",
+            "Events",
+            "Alarm"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "frigate.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/Bettman66/ioBroker.frigate/main/admin/frigate.png",
+        "readme": "https://github.com/Bettman66/ioBroker.frigate/blob/main/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "alarm",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "push",
+        "adminUI": {
+            "config": "materialize"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=3.3.22"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.0.0"
+            }
+        ]
+    },
+    "native": {
+        "mqttObject": "",
+        "friurl": "localhost:5000"
+    },
+    "objects": [],
+    "instanceObjects": []
+}

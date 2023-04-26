@@ -56,10 +56,9 @@
                 "zh-cn": "首次出版"
             }
         },
-        "title": "frigate",
         "titleLang": {
             "en": "frigate",
-            "de": "Fregatte",
+            "de": "Frigate",
             "ru": "фрегат",
             "pt": "fragata",
             "nl": "fregat",
@@ -72,7 +71,7 @@
         },
         "desc": {
             "en": "frigate",
-            "de": "Fregatte",
+            "de": "Frigate",
             "ru": "фрегат",
             "pt": "fragata",
             "nl": "fregat",

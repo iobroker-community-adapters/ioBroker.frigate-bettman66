@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.0.4",
+        "version": "0.0.5",
         "news": {
+            "0.0.5": {
+                "en": "add uk translate"
+            },
             "0.0.4": {
                 "en": "add icon",
                 "de": "Symbol hinzufügen",

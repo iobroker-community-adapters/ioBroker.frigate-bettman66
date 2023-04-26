@@ -4,7 +4,17 @@
         "version": "0.0.5",
         "news": {
             "0.0.5": {
-                "en": "add uk translate"
+                "en": "add uk translate",
+                "de": "uk übersetzen hinzufügen",
+                "ru": "добавить английский перевод",
+                "pt": "adicionar tradução do Reino Unido",
+                "nl": "voeg engels vertalen toe",
+                "fr": "ajouter uk traduire",
+                "it": "aggiungi uk traduci",
+                "es": "añadir traducción del Reino Unido",
+                "pl": "dodaj tłumacz uk",
+                "uk": "додати англійський переклад",
+                "zh-cn": "添加英国翻译"
             },
             "0.0.4": {
                 "en": "add icon",

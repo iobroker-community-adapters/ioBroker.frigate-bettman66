@@ -13,7 +13,8 @@
                 "it": "aggiungi icona",
                 "es": "agregar icono",
                 "pl": "dodaj ikonę",
-                "zh-cn": "添加图标"
+                "zh-cn": "添加图标",
+                "uk": "додати значок"
             },
             "0.0.3": {
                 "en": "add bluefox",
@@ -25,7 +26,8 @@
                 "it": "aggiungi bluefox",
                 "es": "añadir zorro azul",
                 "pl": "dodaj bluefoxa",
-                "zh-cn": "添加蓝狐"
+                "zh-cn": "添加蓝狐",
+                "uk": "додати bluefox"
             },
             "0.0.2": {
                 "en": "add coral tpu",
@@ -37,7 +39,8 @@
                 "it": "aggiungi corallo tpu",
                 "es": "añadir coral tpu",
                 "pl": "dodaj koralowy tpu",
-                "zh-cn": "添加珊瑚TPU"
+                "zh-cn": "添加珊瑚TPU",
+                "uk": "додати кораловий тпу"
             },
             "0.0.1": {
                 "en": "initial release",

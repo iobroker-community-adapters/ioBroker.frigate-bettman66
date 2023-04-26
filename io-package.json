@@ -1,10 +1,31 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "news": {
+            "0.0.4": {
+                "en": "add icon",
+                "de": "Symbol hinzufügen",
+                "ru": "добавить значок",
+                "pt": "adicionar ícone",
+                "nl": "pictogram toevoegen",
+                "fr": "ajouter une icône",
+                "it": "aggiungi icona",
+                "es": "agregar icono",
+                "pl": "dodaj ikonę",
+                "zh-cn": "添加图标"
+            },
             "0.0.3": {
-                "en": "add bluefox"
+                "en": "add bluefox",
+                "de": "Blaufuchs hinzufügen",
+                "ru": "добавить блюфокс",
+                "pt": "adicionar bluefox",
+                "nl": "blauwvos toevoegen",
+                "fr": "ajouter le renard bleu",
+                "it": "aggiungi bluefox",
+                "es": "añadir zorro azul",
+                "pl": "dodaj bluefoxa",
+                "zh-cn": "添加蓝狐"
             },
             "0.0.2": {
                 "en": "add coral tpu",
@@ -60,8 +81,7 @@
             "zh-cn": "护卫舰"
         },
         "authors": [
-            "Bettman66 <w.zengel@gmx.de>",
-            "bluefox <dogafox@gmail.com>"
+            "Bettman66 <w.zengel@gmx.de>"
         ],
         "keywords": [
             "Video",
@@ -73,8 +93,8 @@
         "main": "main.js",
         "icon": "frigate.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/Bettman66/ioBroker.frigate/main/admin/frigate.png",
-        "readme": "https://github.com/Bettman66/ioBroker.frigate/blob/main/README.md",
+        "extIcon": "https://raw.githubusercontent.com/Bettman66/ioBroker.frigate/master/admin/frigate.png",
+        "readme": "https://github.com/Bettman66/ioBroker.frigate/blob/master/README.md",
         "loglevel": "info",
         "mode": "daemon",
         "type": "alarm",

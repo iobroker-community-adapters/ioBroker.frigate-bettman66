@@ -27,6 +27,7 @@ class Frigate extends utils.Adapter {
         this.on('eventChange', this.onEventChange.bind(this));
         this.on('statsChange', this.onStatsChange.bind(this));
         this.on('availableChange', this.onAvailableChange.bind(this));
+        this.on('objectChange', this.onObjectChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 
@@ -49,6 +50,10 @@ class Frigate extends utils.Adapter {
         } catch (e) {
             callback();
         }
+    }
+
+    async onObjectChange(id, state) {
+        this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
     }
 
     async onAvailableChange(obj) {
@@ -273,6 +278,7 @@ class Frigate extends utils.Adapter {
             if (id == id0 + '.events') this.onEventChange(state);
             else if (id == id0 + '.stats') this.onStatsChange(state);
             else if (id == id0 + '.available') this.onAvailableChange(state);
+            else this.onObjectChange(id,state);
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);

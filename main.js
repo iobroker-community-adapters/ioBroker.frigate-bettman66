@@ -26,6 +26,7 @@ class Frigate extends utils.Adapter {
         this.on('stateChange', this.onStateChange.bind(this));
         this.on('eventChange', this.onEventChange.bind(this));
         this.on('statsChange', this.onStatsChange.bind(this));
+        this.on('availableChange', this.onAvailableChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 
@@ -35,8 +36,7 @@ class Frigate extends utils.Adapter {
     async onReady() {
         // Initialize your adapter here
         this.log.info('MQTT Frigate Object: ' + this.config.mqttObject);
-        this.subscribeForeignStates(this.config.mqttObject + '.events');
-        this.subscribeForeignStates(this.config.mqttObject + '.stats');
+        this.subscribeForeignStates(this.config.mqttObject + '.*');
     }
 
     /**
@@ -49,6 +49,23 @@ class Frigate extends utils.Adapter {
         } catch (e) {
             callback();
         }
+    }
+
+    async onAvailableChange(obj) {
+        this.log.debug(`changed: ${obj.val}`);
+        await this.setObjectNotExistsAsync('available', {
+            type: 'state',
+            common: {
+                name: 'frigate online',
+                type: 'string',
+                role: 'indicator',
+                read: true,
+                write: false,
+                def: ''
+            },
+            native: {},
+        });
+        this.setState('available', { val: obj.val, ack: true });
     }
 
     async onStatsChange(obj) {
@@ -252,8 +269,10 @@ class Frigate extends utils.Adapter {
      */
     onStateChange(id, state) {
         if (state) {
-            if (id == this.config.mqttObject + '.events') this.onEventChange(state);
-            else if (id == this.config.mqttObject + '.stats') this.onStatsChange(state);
+            const id0 = this.config.mqttObject;
+            if (id == id0 + '.events') this.onEventChange(state);
+            else if (id == id0 + '.stats') this.onStatsChange(state);
+            else if (id == id0 + '.available') this.onAvailableChange(state);
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);

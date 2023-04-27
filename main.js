@@ -53,7 +53,21 @@ class Frigate extends utils.Adapter {
     }
 
     async onObjectChange(id, state) {
-        this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+        const obj = id.replace(this.config.mqttObject + '.', '');
+        this.log.debug(`state ${obj} changed: ${state.val} (ack = ${state.ack})`);
+        let type = typeof state.val;
+        await this.setObjectNotExistsAsync(obj, {
+            type: 'state',
+            common: {
+                name: obj,
+                type: type.toString(),
+                role: 'value',
+                read: true,
+                write: true
+            },
+            native: {},
+        });
+        this.setState(obj, { val: state.val, ack: true });
     }
 
     async onAvailableChange(obj) {

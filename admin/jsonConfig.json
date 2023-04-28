@@ -4,6 +4,7 @@
     "items": {
         "mqttObject": {
             "type": "text",
+            "md": 6,
             "label": "Frigate MQTT Object",
             "newLine": true
         },

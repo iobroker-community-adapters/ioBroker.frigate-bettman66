@@ -1,5 +1,8 @@
 {
-    "frigat adapter settings": "frigat的适配器设置",
-    "option1": "选项1",
-    "option2": "选项2"
+    "Cancel": "取消",
+    "Frigate Settings": "护卫舰设置",
+    "Frigate URL:": "护卫舰网址",
+    "MQTT Object": "MQTT对象",
+    "Object:": "目的",
+    "Select": "选择"
 }

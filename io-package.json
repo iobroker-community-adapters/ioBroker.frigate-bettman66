@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
+            "0.0.7": {
+                "en": "json-ui",
+                "de": "json-ui",
+                "ru": "JSON-UI",
+                "pt": "json-ui",
+                "nl": "json-ui",
+                "fr": "json-ui",
+                "it": "json-ui",
+                "es": "json-ui",
+                "pl": "json-UI",
+                "uk": "json-ui",
+                "zh-cn": "json-ui"
+            },
             "0.0.6": {
                 "en": "add set states",
                 "de": "Mengenzustände hinzufügen",
@@ -52,8 +65,8 @@
                 "it": "aggiungi bluefox",
                 "es": "añadir zorro azul",
                 "pl": "dodaj bluefoxa",
-                "zh-cn": "添加蓝狐",
-                "uk": "додати bluefox"
+                "uk": "додати bluefox",
+                "zh-cn": "添加蓝狐"
             },
             "0.0.2": {
                 "en": "add coral tpu",
@@ -65,8 +78,8 @@
                 "it": "aggiungi corallo tpu",
                 "es": "añadir coral tpu",
                 "pl": "dodaj koralowy tpu",
-                "zh-cn": "添加珊瑚TPU",
-                "uk": "додати кораловий тпу"
+                "uk": "додати кораловий тпу",
+                "zh-cn": "添加珊瑚TPU"
             },
             "0.0.1": {
                 "en": "initial release",

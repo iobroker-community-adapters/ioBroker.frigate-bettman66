@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
+            "0.0.6": {
+                "en": "add set states",
+                "de": "Mengenzustände hinzufügen",
+                "ru": "добавить заданные состояния",
+                "pt": "adicionar estados definidos",
+                "nl": "ingestelde toestanden toevoegen",
+                "fr": "ajouter des états définis",
+                "it": "aggiungere stati di insieme",
+                "es": "agregar estados establecidos",
+                "pl": "dodaj ustawione stany",
+                "uk": "додати встановлені стани",
+                "zh-cn": "添加设置状态"
+            },
             "0.0.5": {
                 "en": "add uk translate",
                 "de": "uk übersetzen hinzufügen",

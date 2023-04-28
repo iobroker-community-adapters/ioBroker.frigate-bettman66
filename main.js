@@ -55,12 +55,21 @@ class Frigate extends utils.Adapter {
     }
 
     async onAdapterobjectChange(id,state) {
-        this.log.debug(`onAdapterobjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
+        this.log.debug(`onAdapterobjectChangebegin -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
+        const type = typeof state.val;
+        if ((!state.ack) && (type == 'boolean')) {
+            let def;
+            const obj = id.replace('frigate.0', this.config.mqttObject);
+            if (state.val) { def = 'ON'; } else { def = 'OFF'; }
+            this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${def} (ack = ${state.ack})`);
+            this.setForeignState(obj, { val: def, ack: false });
+        }
     }
 
     async onObjectChange(id, state) {
         const obj = id.replace(this.config.mqttObject + '.', '');
         const obj0 = obj.match('set');
+        const obj1 = obj.match('motion');
         const type = typeof state.val;
         const testobj = await this.getStateAsync(obj);
         this.log.debug(`onObjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
@@ -79,7 +88,7 @@ class Frigate extends utils.Adapter {
             });
             this.setState(obj, { val: state.val, ack: true });
 
-            if (type.toString() == 'string') {
+            if ((type.toString() == 'string') && (obj1 == null)) {
                 const set = obj.replace('state', 'set');
                 let def;
                 if (state.val == 'ON') { def = true; } else { def = false; }

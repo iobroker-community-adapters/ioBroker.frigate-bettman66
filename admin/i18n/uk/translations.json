@@ -1,8 +1,5 @@
 {
-    "Cancel": "Скасувати",
     "Frigate Settings": "Налаштування фрегата",
     "Frigate URL:": "URL фрегата",
-    "MQTT Object": "Об'єкт MQTT",
-    "Object:": "Об'єкт",
-    "Select": "Виберіть"
+    "MQTT Object": "Об'єкт MQTT"
 }

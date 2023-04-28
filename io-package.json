@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.0.7",
+        "version": "0.0.8",
         "news": {
+            "0.0.8": {
+                "en": "add set number states",
+                "de": "Satznummernzustände hinzufügen",
+                "ru": "добавить множество штатов",
+                "pt": "adicionar estados de números definidos",
+                "nl": "voeg set-nummerstatussen toe",
+                "fr": "ajouter des états de nombre d'ensembles",
+                "it": "aggiungere gli stati dei numeri impostati",
+                "es": "agregar estados de números establecidos",
+                "pl": "dodaj stany liczbowe zestawu",
+                "uk": "додати набір станів кількості",
+                "zh-cn": "添加设置编号状态"
+            },
             "0.0.7": {
                 "en": "json-ui",
                 "de": "json-ui",

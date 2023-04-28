@@ -4,12 +4,18 @@
     "items": {
         "mqttObject": {
             "type": "text",
-            "label": "Frigate MQTT Object",
+            "label": {
+                "en": "Frigate MQTT Object",
+                "de": "Frigate MQTT Objekt"
+            },
             "newLine": true
         },
         "friurl": {
             "type": "text",
-            "label": "Frigate Url",
+            "label": {
+                "en": "Frigate Url",
+                "de": "Frigate Url"
+            },
             "newLine": true
         }
     }

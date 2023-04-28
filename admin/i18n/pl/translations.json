@@ -1,8 +1,5 @@
 {
-    "Cancel": "Anulować",
-    "Frigate Settings": "Ustawienia fregaty",
-    "Frigate URL:": "Adres URL fregaty",
-    "MQTT Object": "Obiekt MQTT",
-    "Object:": "Obiekt",
-    "Select": "Wybierać"
+    "frigat adapter settings": "Ustawienia adaptera dla frigat",
+    "option1": "opcja 1",
+    "option2": "Opcja 2"
 }

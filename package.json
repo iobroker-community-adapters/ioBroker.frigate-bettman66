@@ -1,6 +1,6 @@
 {
   "name": "iobroker.frigate",
-  "version": "0.0.6",
+  "version": "0.0.1",
   "description": "frigate",
   "author": {
     "name": "Bettman66",
@@ -10,8 +10,8 @@
   "license": "MIT",
   "keywords": [
     "Video",
-    "Events",
-    "Alarm"
+    "Alarm",
+    "Events"
   ],
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.16.1",
+    "@types/node": "^14.18.43",
     "@types/proxyquire": "^1.3.28",
     "@types/sinon": "^10.0.14",
     "@types/sinon-chai": "^3.2.9",
@@ -43,14 +43,12 @@
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "gulp": "^4.0.2",
-    "axios": "^0.21.2",
-    "mocha": "^10.2.0",
+    "mocha": "^9.2.2",
     "prettier": "^2.8.8",
     "proxyquire": "^2.1.3",
-    "sinon": "^15.0.4",
     "sinon-chai": "^3.7.0",
-    "typescript": "~5.0.4"
+    "sinon": "^13.0.2",
+    "typescript": "~4.6.4"
   },
   "main": "main.js",
   "files": [

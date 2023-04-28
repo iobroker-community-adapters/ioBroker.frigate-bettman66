@@ -1,8 +1,5 @@
 {
-    "Cancel": "Отмена",
-    "Frigate Settings": "Настройки фрегата",
-    "Frigate URL:": "URL фрегата",
-    "MQTT Object": "Объект MQTT",
-    "Object:": "Объект",
-    "Select": "Выбирать"
+    "frigat adapter settings": "Настройки адаптера для frigat",
+    "option1": "Опция 1",
+    "option2": "вариант 2"
 }

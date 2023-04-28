@@ -1,8 +1,5 @@
 {
-    "Cancel": "Stornieren",
-    "Frigate Settings": "Frigateeinstellungen",
-    "Frigate URL:": "Frigate-URL",
-    "MQTT Object": "MQTT-Objekt",
-    "Object:": "Objekt",
-    "Select": "Wählen"
+    "frigate adapter settings": "Adaptereinstellungen für frigate",
+    "option1": "Option 1",
+    "option2": "Option 2"
 }

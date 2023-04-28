@@ -1,8 +1,5 @@
 {
-    "Cancel": "Cancelar",
-    "Frigate Settings": "Ajustes de fragata",
-    "Frigate URL:": "Fragata URL",
-    "MQTT Object": "Objeto MQTT",
-    "Object:": "Objeto",
-    "Select": "Seleccionar"
+    "frigat adapter settings": "Ajustes del adaptador para frigat",
+    "option1": "Opción 1",
+    "option2": "opcion 2"
 }

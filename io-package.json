@@ -96,8 +96,8 @@
             "zh-cn": "护卫舰"
         },
         "desc": {
-            "en": "frigate",
-            "de": "Frigate",
+            "en": "frigat",
+            "de": "Fregatte",
             "ru": "фрегат",
             "pt": "fragata",
             "nl": "fregat",
@@ -113,16 +113,16 @@
         ],
         "keywords": [
             "Video",
-            "Events",
-            "Alarm"
+            "Alarm",
+            "Events"
         ],
         "license": "MIT",
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "frigate.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/Bettman66/ioBroker.frigate/master/admin/frigate.png",
-        "readme": "https://github.com/Bettman66/ioBroker.frigate/blob/master/README.md",
+        "extIcon": "https://raw.githubusercontent.com/Bettman66/ioBroker.frigate/main/admin/frigate.png",
+        "readme": "https://github.com/Bettman66/ioBroker.frigate/blob/main/README.md",
         "loglevel": "info",
         "mode": "daemon",
         "type": "alarm",
@@ -130,7 +130,7 @@
         "connectionType": "local",
         "dataSource": "push",
         "adminUI": {
-            "config": "materialize"
+            "config": "json"
         },
         "dependencies": [
             {
@@ -139,7 +139,7 @@
         ],
         "globalDependencies": [
             {
-                "admin": ">=5.0.0"
+                "admin": ">=5.1.13"
             }
         ]
     },

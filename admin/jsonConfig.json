@@ -1,0 +1,16 @@
+{
+    "i18n": true,
+    "type": "panel",
+    "items": {
+        "mqttObject": {
+            "type": "text",
+            "label": "Frigate MQTT Object",
+            "newLine": true
+        },
+        "friurl": {
+            "type": "text",
+            "label": "Frigate Url",
+            "newLine": true
+        }
+    }
+}

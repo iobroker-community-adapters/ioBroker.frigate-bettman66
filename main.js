@@ -28,6 +28,7 @@ class Frigate extends utils.Adapter {
         this.on('statsChange', this.onStatsChange.bind(this));
         this.on('availableChange', this.onAvailableChange.bind(this));
         this.on('objectChange', this.onObjectChange.bind(this));
+        this.on('adapterobjectChange', this.onAdapterobjectChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 
@@ -38,6 +39,7 @@ class Frigate extends utils.Adapter {
         // Initialize your adapter here
         this.log.info('MQTT Frigate Object: ' + this.config.mqttObject);
         this.subscribeForeignStates(this.config.mqttObject + '.*');
+        this.subscribeStates('*');
     }
 
     /**
@@ -52,12 +54,17 @@ class Frigate extends utils.Adapter {
         }
     }
 
+    async onAdapterobjectChange(id,state) {
+        this.log.debug(`onAdapterobjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
+    }
+
     async onObjectChange(id, state) {
         const obj = id.replace(this.config.mqttObject + '.', '');
         const obj0 = obj.match('set');
         const type = typeof state.val;
         const testobj = await this.getStateAsync(obj);
-        this.log.debug(`test: ${testobj} state ${obj} changed: ${state.val} (ack = ${state.ack})  type: ${type}`);
+        this.log.debug(`onObjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
+        this.log.debug(`Object available: ${testobj} type: ${type}`);
         if (testobj == null) {
             await this.setObjectNotExistsAsync(obj, {
                 type: 'state',
@@ -322,11 +329,15 @@ class Frigate extends utils.Adapter {
      */
     onStateChange(id, state) {
         if (state) {
+            this.log.debug(`id: ${id} changed: ${state.val} (ack = ${state.ack})`);
             const id0 = this.config.mqttObject;
             if (id == id0 + '.events') this.onEventChange(state);
             else if (id == id0 + '.stats') this.onStatsChange(state);
             else if (id == id0 + '.available') this.onAvailableChange(state);
-            else this.onObjectChange(id, state);
+            else {
+                const obj0 = id.match(id0);
+                if (obj0 == null) this.onAdapterobjectChange(id,state); else this.onObjectChange(id, state);
+            }
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);

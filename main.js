@@ -69,7 +69,6 @@ class Frigate extends utils.Adapter {
     async onObjectChange(id, state) {
         const obj = id.replace(this.config.mqttObject + '.', '');
         const obj0 = obj.match('set');
-        const obj1 = obj.match('motion');
         const type = typeof state.val;
         const testobj = await this.getStateAsync(obj);
         this.log.debug(`onObjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
@@ -88,7 +87,7 @@ class Frigate extends utils.Adapter {
             });
             this.setState(obj, { val: state.val, ack: true });
 
-            if ((type.toString() == 'string') && (obj1 == null)) {
+            if (type.toString() == 'string') {
                 const set = obj.replace('state', 'set');
                 let def;
                 if (state.val == 'ON') { def = true; } else { def = false; }

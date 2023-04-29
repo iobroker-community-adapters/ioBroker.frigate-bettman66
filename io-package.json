@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.0.8",
+        "version": "0.0.9",
         "news": {
+            "0.0.9": {
+                "en": "add boolean states",
+                "de": "boolesche Zustände hinzufügen",
+                "ru": "добавить логические состояния",
+                "pt": "adicionar estados booleanos",
+                "nl": "booleaanse toestanden toevoegen",
+                "fr": "ajouter des états booléens",
+                "it": "aggiungere stati booleani",
+                "es": "agregar estados booleanos",
+                "pl": "dodaj stany logiczne",
+                "uk": "додати булеві стани",
+                "zh-cn": "添加布尔状态"
+            },
             "0.0.8": {
                 "en": "add set number states",
                 "de": "Satznummernzustände hinzufügen",

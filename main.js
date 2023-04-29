@@ -49,20 +49,20 @@ class Frigate extends utils.Adapter {
     }
 
     async onAdapterobjectChange(id, state) {
-        this.log.debug(`onAdapterobjectChangebegin -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         const type = typeof state.val;
-        if (!state.ack) {
-            if (type == 'boolean') {
-                let def;
-                const obj = id.replace('frigate.0', this.config.mqttObject);
-                if (state.val) { def = 'ON'; } else { def = 'OFF'; }
-                this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${def} (ack = ${state.ack})`);
-                this.setForeignState(obj, { val: def, ack: false });
-            } else if (type == 'number') {
-                const obj = id.replace('frigate.0', this.config.mqttObject);
-                this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${state.val} (ack = ${state.ack})`);
-                this.setForeignState(obj, { val: state.val, ack: false });
-            }
+        const idArr = id.split('.');
+        const adapterID = idArr[0] + '.' + idArr[1];
+        this.log.debug(`onAdapterobjectChangebegin -> adapterID: ${adapterID} id: ${id} changed: ${state.val} (ack = ${state.ack})`);
+        if (type == 'boolean') {
+            let def;
+            const obj = id.replace(adapterID, this.config.mqttObject);
+            if (state.val) { def = 'ON'; } else { def = 'OFF'; }
+            this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${def} (ack = ${state.ack})`);
+            this.setForeignState(obj, { val: def, ack: false });
+        } else if (type == 'number') {
+            const obj = id.replace(adapterID, this.config.mqttObject);
+            this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${state.val} (ack = ${state.ack})`);
+            this.setForeignState(obj, { val: state.val, ack: false });
         }
     }
 
@@ -389,19 +389,17 @@ class Frigate extends utils.Adapter {
      * @param {ioBroker.State | null | undefined} state
      */
     onStateChange(id, state) {
-        if (state) {
-            this.log.debug(`id: ${id} changed: ${state.val} (ack = ${state.ack})`);
-            const id0 = this.config.mqttObject;
-            if (id == id0 + '.events') this.onEventChange(state);
-            else if (id == id0 + '.stats') this.onStatsChange(state);
-            else if (id == id0 + '.available') this.onAvailableChange(state);
-            else {
-                const obj0 = id.match(id0);
-                if (obj0 == null) this.onAdapterobjectChange(id, state); else this.onObjectChange(id, state);
-            }
-        } else {
-            // The state was deleted
-            this.log.info(`state ${id} deleted`);
+        if (!id || !state) return;
+        this.log.debug(`id: ${id} changed: ${state.val} (ack = ${state.ack})`);
+        const id0 = this.config.mqttObject;
+        if (id == id0 + '.events') this.onEventChange(state);
+        else if (id == id0 + '.stats') this.onStatsChange(state);
+        else if (id == id0 + '.available') this.onAvailableChange(state);
+        else {
+            const obj0 = id.match(id0);
+            if (obj0 == null) {
+                if (!state.ack) this.onAdapterobjectChange(id, state);
+            } else if (state.ack) this.onObjectChange(id, state);
         }
     }
 }

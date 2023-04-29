@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use strict';
 /*
  *
@@ -24,11 +23,6 @@ class Frigate extends utils.Adapter {
         });
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
-        this.on('eventChange', this.onEventChange.bind(this));
-        this.on('statsChange', this.onStatsChange.bind(this));
-        this.on('availableChange', this.onAvailableChange.bind(this));
-        this.on('objectChange', this.onObjectChange.bind(this));
-        this.on('adapterobjectChange', this.onAdapterobjectChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 
@@ -80,18 +74,35 @@ class Frigate extends utils.Adapter {
         this.log.debug(`onObjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         this.log.debug(`Object available: ${testobj} type: ${type}`);
         if (testobj == null) {
-            await this.setObjectNotExistsAsync(obj, {
-                type: 'state',
-                common: {
-                    name: obj,
-                    type: type.toString(),
-                    role: 'value',
-                    read: true,
-                    write: false
-                },
-                native: {},
-            });
-            this.setState(obj, { val: state.val, ack: true });
+            if (type.toString() == 'string') {
+                let def;
+                if (state.val == 'ON') { def = true; } else { def = false; }
+                await this.setObjectNotExistsAsync(obj, {
+                    type: 'state',
+                    common: {
+                        name: obj,
+                        type: 'boolean',
+                        role: 'value',
+                        read: true,
+                        write: false,
+                        def: def
+                    },
+                    native: {},
+                });
+            } else if (type.toString() == 'number') {
+                await this.setObjectNotExistsAsync(obj, {
+                    type: 'state',
+                    common: {
+                        name: obj,
+                        type: 'number',
+                        role: 'value',
+                        read: true,
+                        write: false,
+                        def: state.val
+                    },
+                    native: {},
+                });
+            }
 
             if ((type.toString() == 'string') || (type.toString() == 'number')) {
                 const set = obj.replace('state', 'set');
@@ -149,7 +160,12 @@ class Frigate extends utils.Adapter {
                     });
                 }
             }
-        } else if (obj0 == null) this.setState(obj, { val: state.val, ack: true });
+        } else if (obj0 == null) {
+            if (type.toString() == 'string') {
+                let def;
+                if (state.val == 'ON') { def = true; } else { def = false; } this.setState(obj, { val: def, ack: true });
+            } else this.setState(obj, { val: state.val, ack: true });
+        }
     }
 
     async onAvailableChange(obj) {
@@ -311,7 +327,9 @@ class Frigate extends utils.Adapter {
                     if (i == 0) {
                         this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: websnap, ack: true });
                     } else {
-                        this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: (await this.getStateAsync(id2 + '.web.snap.snap_' + (i - 1).toString())).val, ack: true });
+                        const str = await this.getStateAsync(id2 + '.web.snap.snap_' + (i - 1).toString());
+                        if (str != null)
+                            this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: str.val, ack: true });
                     }
                 }
                 for (let i = 0; i < 10; i++)
@@ -331,7 +349,9 @@ class Frigate extends utils.Adapter {
                     if (i == 0) {
                         this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: webclip, ack: true });
                     } else {
-                        this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: (await this.getStateAsync(id2 + '.web.clip.clip_' + (i - 1).toString())).val, ack: true });
+                        const str = await this.getStateAsync(id2 + '.web.clip.clip_' + (i - 1).toString());
+                        if (str != null)
+                            this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: str.val, ack: true });
                     }
                 }
                 //------------------------------

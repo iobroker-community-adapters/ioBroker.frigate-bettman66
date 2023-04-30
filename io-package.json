@@ -187,5 +187,34 @@
         "friurl": "localhost:5000"
     },
     "objects": [],
-    "instanceObjects": []
+    "instanceObjects": [
+        {
+            "_id": "event",
+            "type": "state",
+            "common": {
+                "name": "event",
+                "desc": "motion detected",
+                "type": "boolean",
+                "role": "indicator",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "available",
+            "type": "state",
+            "common": {
+                "name": "frigate online",
+                "desc": "online",
+                "type": "string",
+                "role": "indicator",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
+        }
+    ]
 }

@@ -4,7 +4,17 @@
         "version": "0.1.1",
         "news": {
             "0.1.1": {
-                "en": "taranslate"
+                "en": "translate",
+                "de": "übersetzen",
+                "ru": "переводить",
+                "pt": "traduzir",
+                "nl": "vertalen",
+                "fr": "traduire",
+                "it": "tradurre",
+                "es": "traducir",
+                "pl": "Tłumaczyć",
+                "uk": "перекладати",
+                "zh-cn": "翻译"
             },
             "0.1.0": {
                 "en": "objects add",

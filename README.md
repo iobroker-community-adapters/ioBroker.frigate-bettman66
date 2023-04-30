@@ -15,6 +15,9 @@ This adapter parses Frigate's MQTT messages and creates data objects from them
 * [ioBroker Forum Adapter Thread](https://forum.iobroker.net/topic/64928/test-frigate-adapter-v0-0-1-alpha)
 
 ## Changelog
+### 0.1.2
+* (bettman66) ready to test
+
 ### 0.1.1
 * (bettman66) translate
 

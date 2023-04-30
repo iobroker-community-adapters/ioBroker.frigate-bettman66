@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "news": {
+            "0.1.2": {
+                "en": "ready to test",
+                "de": "bereit zu testen",
+                "ru": "готов к тесту",
+                "pt": "pronto para testar",
+                "nl": "klaar om te testen",
+                "fr": "prêt à tester",
+                "it": "pronto per la prova",
+                "es": "listo para probar",
+                "pl": "gotowy do testu",
+                "uk": "готовий до тестування",
+                "zh-cn": "准备测试"
+            },
             "0.1.1": {
                 "en": "translate",
                 "de": "übersetzen",

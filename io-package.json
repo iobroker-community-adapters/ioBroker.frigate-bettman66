@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.0.9",
+        "version": "0.1.0",
         "news": {
+            "0.1.0": {
+                "en": "objects add"
+            },
             "0.0.9": {
                 "en": "add boolean states",
                 "de": "boolesche Zustände hinzufügen",
@@ -135,7 +138,7 @@
             "zh-cn": "护卫舰"
         },
         "desc": {
-            "en": "frigat",
+            "en": "frigate",
             "de": "Frigate",
             "ru": "фрегат",
             "pt": "fragata",
@@ -183,7 +186,7 @@
         ]
     },
     "native": {
-        "mqttObject": "",
+        "mqttObject": "mqtt.0.frigate",
         "friurl": "localhost:5000"
     },
     "objects": [],

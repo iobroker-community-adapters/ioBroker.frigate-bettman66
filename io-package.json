@@ -4,7 +4,17 @@
         "version": "0.1.0",
         "news": {
             "0.1.0": {
-                "en": "objects add"
+                "en": "objects add",
+                "de": "Objekte hinzufügen",
+                "ru": "объекты добавляют",
+                "pt": "objetos adicionar",
+                "nl": "objecten toevoegen",
+                "fr": "objets ajouter",
+                "it": "gli oggetti aggiungono",
+                "es": "añadir objetos",
+                "pl": "dodaj obiekty",
+                "uk": "об'єктів доп",
+                "zh-cn": "对象添加"
             },
             "0.0.9": {
                 "en": "add boolean states",

@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.2",
+        "version": "0.1.3",
         "news": {
+            "0.1.3": {
+                "en": "bug web objects",
+                "de": "Bug-Web-Objekte",
+                "ru": "ошибка веб-объектов",
+                "pt": "objetos da web de bugs",
+                "nl": "bug-webobjecten",
+                "fr": "objets Web de bogue",
+                "it": "bug oggetti web",
+                "es": "objetos web de errores",
+                "pl": "błędy w obiektach internetowych",
+                "uk": "веб-об’єкти помилок",
+                "zh-cn": "错误网页对象"
+            },
             "0.1.2": {
                 "en": "ready to test",
                 "de": "bereit zu testen",

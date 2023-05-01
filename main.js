@@ -363,9 +363,9 @@ class Frigate extends utils.Adapter {
         if (!id || !state) return;
         this.log.debug(`id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         const id0 = this.config.mqttObject;
-        if ((id == id0 + '.events') && (state.ack)) this.onEventChange(state);
-        else if ((id == id0 + '.stats') && (state.ack)) this.onStatsChange(state);
-        else if ((id == id0 + '.available') && (state.ack)) this.setState('available', { val: state.val, ack: true });
+        if (id == id0 + '.events') this.onEventChange(state);
+        else if (id == id0 + '.stats') this.onStatsChange(state);
+        else if (id == id0 + '.available') this.setState('available', { val: state.val, ack: true });
         else {
             const obj0 = id.match(id0);
             if (obj0 == null) {

@@ -1,4 +1,5 @@
 ![Logo](admin/frigate.png)
+
 # ioBroker.frigate
 
 [![NPM version](https://img.shields.io/npm/v/iobroker.frigate.svg)](https://www.npmjs.com/package/iobroker.frigate)
@@ -9,52 +10,46 @@
 [![NPM](https://nodei.co/npm/iobroker.frigate.png?downloads=true)](https://nodei.co/npm/iobroker.frigate/)
 
 ## frigate adapter for ioBroker
+
 This adapter parses Frigate's MQTT messages and creates data objects from them
 
+## Instructions
+
+MQTT must be activated in Frigate and integrated into the ioBroker.
+The MQTT data point (usually "mqtt.0.frigate") and the frigate url are entered in the adapter settings.
+
+_Automatically created objects:_
+
+-   objects for settings in Frigate
+-   motion events for each camera
+-   the last 10 camera snapshot/clip url in the ring buffer
+
+These objects can be further processed in the ioBroker, e.g. in the Vis.
+
 ## Link
-* [ioBroker Forum Adapter Thread](https://forum.iobroker.net/topic/64928/test-frigate-adapter-v0-0-1-alpha)
+
+-   [ioBroker Forum Adapter Thread](https://forum.iobroker.net/topic/64928/test-frigate-adapter-v0-0-1-alpha)
 
 ## Changelog
+
 ### 0.1.3
-* (bettman66) bug web objects
+
+-   (bettman66) bug web objects
 
 ### 0.1.2
-* (bettman66) ready to test
+
+-   (bettman66) ready to test
 
 ### 0.1.1
-* (bettman66) translate
+
+-   (bettman66) translate
 
 ### 0.1.0
-* (bettman66) objects add
 
-### 0.0.9
-* (bettman66) add boolean states
-
-### 0.0.8
-* (bettman66) add set number states
-
-### 0.0.7
-* (bettman66) json-ui
-
-### 0.0.6
-* (bettman66) add set states
-
-### 0.0.5
-* (bettman66) add uk translate
-
-### 0.0.4
-* (bettman66) add icon
-
-### 0.0.3
-* (bettman66) add bluefox
-
-### 0.0.2
-* (bettman66) add coral tpu
-
-### 0.0.1
-* (bettman66) first commit
+-   (bettman66) objects add
 
 ## License
+
 MIT License
 
 Copyright (c) 2023 Bettman66 <w.zengel@gmx.de>

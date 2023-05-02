@@ -16,13 +16,14 @@ This adapter parses Frigate's MQTT messages and creates data objects from them
 ## Instructions
 
 MQTT must be activated in Frigate and integrated into the ioBroker.
-The MQTT data point (usually "mqtt.0.frigate") and the frigate url are entered in the adapter settings.
+The MQTT data point (usually "mqtt.0.frigate"), the frigate url and
+Number of web url are entered in the adapter settings.
 
 _Automatically created objects:_
 
 -   objects for settings in Frigate
 -   motion events for each camera
--   the last 10 camera snapshot/clip url in the ring buffer
+-   the last camera snapshot/clip url in the ring buffer
 
 These objects can be further processed in the ioBroker, e.g. in the Vis.
 
@@ -31,6 +32,10 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 -   [ioBroker Forum Adapter Thread](https://forum.iobroker.net/topic/64928/test-frigate-adapter-v0-0-1-alpha)
 
 ## Changelog
+
+### 0.1.6
+
+-   (bettman66) Number of web url
 
 ### 0.1.5
 

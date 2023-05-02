@@ -12,7 +12,6 @@
 const utils = require('@iobroker/adapter-core');
 
 class Frigate extends utils.Adapter {
-
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
      */
@@ -52,11 +51,17 @@ class Frigate extends utils.Adapter {
         const type = typeof state.val;
         const idArr = id.split('.');
         const adapterID = idArr[0] + '.' + idArr[1];
-        this.log.debug(`onAdapterobjectChangebegin -> adapterID: ${adapterID} id: ${id} changed: ${state.val} (ack = ${state.ack})`);
+        this.log.debug(
+            `onAdapterobjectChangebegin -> adapterID: ${adapterID} id: ${id} changed: ${state.val} (ack = ${state.ack})`,
+        );
         if (type == 'boolean') {
             let def;
             const obj = id.replace(adapterID, this.config.mqttObject);
-            if (state.val) { def = 'ON'; } else { def = 'OFF'; }
+            if (state.val) {
+                def = 'ON';
+            } else {
+                def = 'OFF';
+            }
             this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${def} (ack = ${state.ack})`);
             this.setForeignState(obj, { val: def, ack: false });
         } else if (type == 'number') {
@@ -76,7 +81,11 @@ class Frigate extends utils.Adapter {
         if (testobj == null) {
             if (type.toString() == 'string') {
                 let def;
-                if (state.val == 'ON') { def = true; } else { def = false; }
+                if (state.val == 'ON') {
+                    def = true;
+                } else {
+                    def = false;
+                }
                 await this.setObjectNotExistsAsync(obj, {
                     type: 'state',
                     common: {
@@ -85,7 +94,7 @@ class Frigate extends utils.Adapter {
                         role: 'value',
                         read: true,
                         write: false,
-                        def: def
+                        def: def,
                     },
                     native: {},
                 });
@@ -98,17 +107,21 @@ class Frigate extends utils.Adapter {
                         role: 'value',
                         read: true,
                         write: false,
-                        def: state.val
+                        def: state.val,
                     },
                     native: {},
                 });
             }
 
-            if ((type.toString() == 'string') || (type.toString() == 'number')) {
+            if (type.toString() == 'string' || type.toString() == 'number') {
                 const set = obj.replace('state', 'set');
                 let def;
                 if (type.toString() == 'string') {
-                    if (state.val == 'ON') { def = true; } else { def = false; }
+                    if (state.val == 'ON') {
+                        def = true;
+                    } else {
+                        def = false;
+                    }
                     await this.setObjectNotExistsAsync(set, {
                         type: 'state',
                         common: {
@@ -117,7 +130,7 @@ class Frigate extends utils.Adapter {
                             role: 'switch',
                             read: true,
                             write: true,
-                            def: def
+                            def: def,
                         },
                         native: {},
                     });
@@ -129,7 +142,7 @@ class Frigate extends utils.Adapter {
                             role: 'switch',
                             read: true,
                             write: true,
-                            def: state.val
+                            def: state.val,
                         },
                         native: {},
                     });
@@ -142,7 +155,7 @@ class Frigate extends utils.Adapter {
                             role: 'value',
                             read: true,
                             write: true,
-                            def: state.val
+                            def: state.val,
                         },
                         native: {},
                     });
@@ -154,7 +167,7 @@ class Frigate extends utils.Adapter {
                             role: 'value',
                             read: true,
                             write: true,
-                            def: state.val
+                            def: state.val,
                         },
                         native: {},
                     });
@@ -163,7 +176,12 @@ class Frigate extends utils.Adapter {
         } else if (obj0 == null) {
             if (type.toString() == 'string') {
                 let def;
-                if (state.val == 'ON') { def = true; } else { def = false; } this.setState(obj, { val: def, ack: true });
+                if (state.val == 'ON') {
+                    def = true;
+                } else {
+                    def = false;
+                }
+                this.setState(obj, { val: def, ack: true });
             } else this.setState(obj, { val: state.val, ack: true });
         }
     }
@@ -183,7 +201,7 @@ class Frigate extends utils.Adapter {
                         name: 'apex_0 temperature',
                         role: 'value.temperature',
                         unit: '°C',
-                        def: 0
+                        def: 0,
                     },
                     native: {},
                 });
@@ -199,7 +217,7 @@ class Frigate extends utils.Adapter {
                         name: 'apex_1 temperature',
                         role: 'value.temperature',
                         unit: '°C',
-                        def: 0
+                        def: 0,
                     },
                     native: {},
                 });
@@ -240,7 +258,7 @@ class Frigate extends utils.Adapter {
                         role: 'indicator',
                         read: true,
                         write: false,
-                        def: false
+                        def: false,
                     },
                     native: {},
                 });
@@ -256,7 +274,7 @@ class Frigate extends utils.Adapter {
                         role: 'indicator',
                         read: true,
                         write: false,
-                        def: false
+                        def: false,
                     },
                     native: {},
                 });
@@ -273,7 +291,7 @@ class Frigate extends utils.Adapter {
                         role: 'value',
                         read: true,
                         write: false,
-                        def: 'none'
+                        def: 'none',
                     },
                     native: {},
                 });
@@ -281,7 +299,8 @@ class Frigate extends utils.Adapter {
                 //------------------------------
                 //           WebURL
                 //------------------------------
-                for (let i = 0; i < 10; i++)
+                const anz = this.config.webnum;
+                for (let i = 0; i < anz; i++)
                     await this.setObjectNotExistsAsync(id2 + '.web.snap.snap_' + i.toString(), {
                         type: 'state',
                         common: {
@@ -290,11 +309,11 @@ class Frigate extends utils.Adapter {
                             role: 'value',
                             read: true,
                             write: false,
-                            def: ''
+                            def: '',
                         },
                         native: {},
                     });
-                for (let i = 9; i > -1; i--) {
+                for (let i = anz - 1; i > -1; i--) {
                     if (i == 0) {
                         this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: websnap, ack: true });
                     } else {
@@ -303,7 +322,7 @@ class Frigate extends utils.Adapter {
                             this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: str.val, ack: true });
                     }
                 }
-                for (let i = 0; i < 10; i++)
+                for (let i = 0; i < anz; i++)
                     await this.setObjectNotExistsAsync(id2 + '.web.clip.clip_' + i.toString(), {
                         type: 'state',
                         common: {
@@ -312,11 +331,11 @@ class Frigate extends utils.Adapter {
                             role: 'value',
                             read: true,
                             write: false,
-                            def: ''
+                            def: '',
                         },
                         native: {},
                     });
-                for (let i = 9; i > -1; i--) {
+                for (let i = anz - 1; i > -1; i--) {
                     if (i == 0) {
                         this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: webclip, ack: true });
                     } else {
@@ -337,7 +356,7 @@ class Frigate extends utils.Adapter {
                         name: 'detection rate',
                         role: 'value.score',
                         unit: '%',
-                        def: 0
+                        def: 0,
                     },
                     native: {},
                 });

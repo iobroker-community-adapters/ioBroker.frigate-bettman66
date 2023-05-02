@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.5",
+        "version": "0.1.6",
         "news": {
+            "0.1.6": {
+                "en": "Number of web url",
+                "de": "Nummer der Web-URL",
+                "ru": "Количество веб-адресов",
+                "pt": "Número de URL da web",
+                "nl": "Aantal web-URL",
+                "fr": "Nombre d'URL Web",
+                "it": "Numero di URL web",
+                "es": "Número de URL web",
+                "pl": "Numer adresu internetowego",
+                "uk": "Номер веб-адреси",
+                "zh-cn": "网址数量"
+            },
             "0.1.5": {
                 "en": "new npm package",
                 "de": "Neues npm-Paket",
@@ -262,7 +275,8 @@
     },
     "native": {
         "mqttObject": "mqtt.0.frigate",
-        "friurl": "localhost:5000"
+        "friurl": "localhost:5000",
+        "webnum": 10
     },
     "objects": [],
     "instanceObjects": [

@@ -32,6 +32,14 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 
 ## Changelog
 
+### 0.1.5
+
+-   (bettman66) new npm package
+
+### 0.1.4
+
+-   (bettman66) update readme
+
 ### 0.1.3
 
 -   (bettman66) bug web objects

@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.4",
+        "version": "0.1.5",
         "news": {
+            "0.1.5": {
+                "en": "new npm package",
+                "de": "Neues npm-Paket",
+                "ru": "новый нпм-пакет",
+                "pt": "novo pacote npm",
+                "nl": "nieuw npm-pakket",
+                "fr": "nouveau paquet npm",
+                "it": "nuovo pacchetto npm",
+                "es": "nuevo paquete npm",
+                "pl": "nowy pakiet npm",
+                "uk": "новий пакет npm",
+                "zh-cn": "新的 npm 包"
+            },
             "0.1.4": {
                 "en": "update readme",
                 "de": "Readme aktualisieren",

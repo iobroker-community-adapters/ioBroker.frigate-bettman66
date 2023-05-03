@@ -195,7 +195,7 @@ class Frigate extends utils.Adapter {
             obj0.storage = key;
             result.push(obj0);
         });
-        this.log.debug(`changed: ${result}`);
+        this.log.info(JSON.stringify(result));
         this.log.debug(`changed: ${obj.val}`);
         try {
             if (apextemperatur.apex_0) {

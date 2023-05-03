@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.6",
+        "version": "0.1.7",
         "news": {
+            "0.1.7": {
+                "en": "add switch"
+            },
             "0.1.6": {
                 "en": "Number of web url",
                 "de": "Nummer der Web-URL",

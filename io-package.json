@@ -4,7 +4,17 @@
         "version": "0.1.7",
         "news": {
             "0.1.7": {
-                "en": "add switch"
+                "en": "add switch",
+                "de": "Schalter hinzufügen",
+                "ru": "добавить переключатель",
+                "pt": "adicionar interruptor",
+                "nl": "schakelaar toevoegen",
+                "fr": "ajouter un interrupteur",
+                "it": "aggiungere interruttore",
+                "es": "añadir interruptor",
+                "pl": "dodaj przełącznik",
+                "uk": "додати перемикач",
+                "zh-cn": "添加开关"
             },
             "0.1.6": {
                 "en": "Number of web url",

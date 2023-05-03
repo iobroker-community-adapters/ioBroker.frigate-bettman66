@@ -190,7 +190,7 @@ class Frigate extends utils.Adapter {
         const extractedJSON = JSON.parse(obj.val);
         const apextemperatur = extractedJSON.service.temperatures;
         const storage = JSON.parse((extractedJSON.service.storage).toString);
-        this.log.info(`storage: ${storage}`);
+        this.log.info(JSON.stringify(storage));
         this.log.debug(`changed: ${obj.val}`);
         try {
             if (apextemperatur.apex_0) {

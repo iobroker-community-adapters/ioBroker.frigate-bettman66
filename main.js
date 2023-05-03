@@ -190,12 +190,10 @@ class Frigate extends utils.Adapter {
         const extractedJSON = JSON.parse(obj.val);
         const extracted = JSON.parse(obj.val).toString;
         const apextemperatur = extractedJSON.service.temperatures;
-        for (let i = 0; i < extracted.groupIds.length; i++) {
-            for (const x in extracted.groupIds[i]) {
-                this.log.info(` node: ${extracted.groupIds[i][x]}`);
-                // x is now your unknown key
-                // response.groupIds[i][x] is the unknown value
-            }
+        for (const x in extracted.groupIds[0]) {
+            this.log.info(` node: ${extracted.groupIds[0][x]}`);
+            // x is now your unknown key
+            // response.groupIds[i][x] is the unknown value
         }
         this.log.debug(`changed: ${obj.val}`);
         try {

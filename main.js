@@ -10,6 +10,7 @@
  */
 
 const utils = require('@iobroker/adapter-core');
+let weburl;
 
 class Frigate extends utils.Adapter {
     /**
@@ -30,7 +31,11 @@ class Frigate extends utils.Adapter {
      */
     async onReady() {
         // Initialize your adapter here
+        if (this.config.friurl.match('http://') == null)
+            weburl = 'http://' + this.config.friurl;
+        else weburl = this.config.friurl;
         this.log.info('MQTT Frigate Object: ' + this.config.mqttObject);
+        this.log.info('MQTT Frigate URL: ' + weburl);
         this.subscribeForeignStates(this.config.mqttObject + '.*');
         this.subscribeStates('*');
     }
@@ -315,10 +320,6 @@ class Frigate extends utils.Adapter {
         const eventtype = extractedJSON.type;
         const id1 = beforecamera + '.event';
         const id2 = beforecamera + '.objects.' + beforelabel;
-        let weburl;
-        if (this.config.friurl.match('http://') == null)
-            weburl = 'http://' + this.config.friurl;
-        else weburl = this.config.friurl;
         const websnap = weburl + '//api/events/' + afterid + '/snapshot.jpg';
         const webclip = weburl + '//api/events/' + afterid + '/clip.mp4';
         this.log.debug(`changed: ${obj.val}`);

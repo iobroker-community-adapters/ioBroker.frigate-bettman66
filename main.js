@@ -190,9 +190,12 @@ class Frigate extends utils.Adapter {
     async onStatsChange(obj) {
         const extractedJSON = JSON.parse(obj.val);
         const arrtemperatur = String(Object.keys(extractedJSON.service.temperatures)).split(',');
-        const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
         const apextemperatur = JSON.stringify(extractedJSON.service.temperatures);
         const apex = JSON.parse(apextemperatur);
+        const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
+        const arrstor = JSON.stringify(extractedJSON.service.storage);
+        const stor = JSON.parse(arrstor);
+
         this.log.debug(`changed: ${obj.val}`);
         try {
             for (let i = 0; i < arrtemperatur.length; i++) {
@@ -211,6 +214,25 @@ class Frigate extends utils.Adapter {
                 });
                 this.setState('stats' + '.temperature.' + arrtemperatur[i], {
                     val: apex[arrtemperatur[i]],
+                    ack: true,
+                });
+            }
+            for (let i = 0; i < arrstorage.length; i++) {
+                await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.total', {
+                    type: 'state',
+                    common: {
+                        type: 'number',
+                        read: true,
+                        write: false,
+                        name: arrstorage[i],
+                        role: 'value',
+                        unit: '',
+                        def: 0,
+                    },
+                    native: {},
+                });
+                this.setState('stats' + '.storage.' + arrtemperatur[i] + '.total', {
+                    val: arrstor['total'],
                     ack: true,
                 });
             }

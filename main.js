@@ -10,7 +10,6 @@
  */
 
 const utils = require('@iobroker/adapter-core');
-const { json } = require('stream/consumers');
 
 class Frigate extends utils.Adapter {
     /**
@@ -195,7 +194,7 @@ class Frigate extends utils.Adapter {
         const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
         const arrstor = JSON.stringify(extractedJSON.service.storage);
         const stor = JSON.parse(arrstor);
-
+        this.log.info(JSON.stringify(stor));
         this.log.debug(`changed: ${obj.val}`);
         try {
             for (let i = 0; i < arrtemperatur.length; i++) {
@@ -207,7 +206,7 @@ class Frigate extends utils.Adapter {
                         write: false,
                         name: arrtemperatur[i],
                         role: 'value.temperature',
-                        unit: '°C',
+                        unit: '  C',
                         def: 0,
                     },
                     native: {},
@@ -218,6 +217,9 @@ class Frigate extends utils.Adapter {
                 });
             }
             for (let i = 0; i < arrstorage.length; i++) {
+                const sto = JSON.stringify(stor[arrstorage[i]]);
+                const st = JSON.parse(sto);
+                this.log.info(JSON.stringify(st));
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.total', {
                     type: 'state',
                     common: {
@@ -231,8 +233,59 @@ class Frigate extends utils.Adapter {
                     },
                     native: {},
                 });
-                this.setState('stats' + '.storage.' + arrtemperatur[i] + '.total', {
-                    val: arrstor['total'],
+                this.setState('stats' + '.storage.' + arrstorage[i] + '.total', {
+                    val: st['total'],
+                    ack: true,
+                });
+                await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.used', {
+                    type: 'state',
+                    common: {
+                        type: 'number',
+                        read: true,
+                        write: false,
+                        name: arrstorage[i],
+                        role: 'value',
+                        unit: '',
+                        def: 0,
+                    },
+                    native: {},
+                });
+                this.setState('stats' + '.storage.' + arrstorage[i] + '.used', {
+                    val: st['used'],
+                    ack: true,
+                });
+                await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.free', {
+                    type: 'state',
+                    common: {
+                        type: 'number',
+                        read: true,
+                        write: false,
+                        name: arrstorage[i],
+                        role: 'value',
+                        unit: '',
+                        def: 0,
+                    },
+                    native: {},
+                });
+                this.setState('stats' + '.storage.' + arrstorage[i] + '.free', {
+                    val: st['free'],
+                    ack: true,
+                });
+                await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.mount_type', {
+                    type: 'state',
+                    common: {
+                        type: 'string',
+                        read: true,
+                        write: false,
+                        name: arrstorage[i],
+                        role: 'value',
+                        unit: '',
+                        def: '',
+                    },
+                    native: {},
+                });
+                this.setState('stats' + '.storage.' + arrstorage[i] + '.mount_type', {
+                    val: st['mount_type'],
                     ack: true,
                 });
             }

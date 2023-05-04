@@ -194,7 +194,7 @@ class Frigate extends utils.Adapter {
         const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
         const arrstor = JSON.stringify(extractedJSON.service.storage);
         const stor = JSON.parse(arrstor);
-        this.log.info(JSON.stringify(stor));
+        this.log.debug(JSON.stringify(stor));
         this.log.debug(`changed: ${obj.val}`);
         try {
             for (let i = 0; i < arrtemperatur.length; i++) {
@@ -219,7 +219,7 @@ class Frigate extends utils.Adapter {
             for (let i = 0; i < arrstorage.length; i++) {
                 const sto = JSON.stringify(stor[arrstorage[i]]);
                 const st = JSON.parse(sto);
-                this.log.info(JSON.stringify(st));
+                this.log.debug(JSON.stringify(st));
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.total', {
                     type: 'state',
                     common: {

@@ -222,14 +222,14 @@ class Frigate extends utils.Adapter {
                 let sunit, tval, uval, fval;
                 if (st['mount_type'] == 'tmpfs') {
                     sunit = 'MB';
-                    tval = st['total'];
-                    uval = st['used'];
-                    fval = st['free'];
+                    tval = Number(st['total']);
+                    uval = Number(st['used']);
+                    fval = Number(st['free']);
                 } else {
                     sunit = 'GB';
-                    tval = (st['total'] / 1000).toFixed(2);
-                    uval = (st['used'] / 1000).toFixed(2);
-                    fval = (st['free'] / 1000).toFixed(2);
+                    tval = Number((st['total'] / 1000).toFixed(2));
+                    uval = Number((st['used'] / 1000).toFixed(2));
+                    fval = Number((st['free'] / 1000).toFixed(2));
                 }
                 this.log.debug(JSON.stringify(st));
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.total', {

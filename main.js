@@ -10,6 +10,7 @@
  */
 
 const utils = require('@iobroker/adapter-core');
+const { json } = require('stream/consumers');
 
 class Frigate extends utils.Adapter {
     /**
@@ -188,47 +189,32 @@ class Frigate extends utils.Adapter {
 
     async onStatsChange(obj) {
         const extractedJSON = JSON.parse(obj.val);
-        const apextemperatur = extractedJSON.service.temperatures;
-        const result = [];
-        Object.keys(extractedJSON.service.storage).forEach(function (key) {
-            const obj0 = {};
-            obj0.storage = key;
-            result.push(obj0);
-        });
-        this.log.info(JSON.stringify(result));
+        const arrtemperatur = String(Object.keys(extractedJSON.service.temperatures)).split(',');
+        const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
         this.log.debug(`changed: ${obj.val}`);
         try {
-            if (apextemperatur.apex_0) {
-                await this.setObjectNotExistsAsync('stats' + '.temperature.apex_0', {
+            for (let i = 0; i < arrtemperatur.length; i++) {
+                await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
                     type: 'state',
                     common: {
                         type: 'number',
                         read: true,
                         write: false,
-                        name: 'apex_0 temperature',
+                        name: arrtemperatur[i],
                         role: 'value.temperature',
                         unit: '°C',
                         def: 0,
                     },
                     native: {},
                 });
-                this.setState('stats' + '.temperature.apex_0', { val: apextemperatur.apex_0, ack: true });
-            }
-            if (apextemperatur.apex_1) {
-                await this.setObjectNotExistsAsync('stats' + '.temperature.apex_1', {
-                    type: 'state',
-                    common: {
-                        type: 'number',
-                        read: true,
-                        write: false,
-                        name: 'apex_1 temperature',
-                        role: 'value.temperature',
-                        unit: '°C',
-                        def: 0,
-                    },
-                    native: {},
+                const apextemperatur = JSON.stringify(extractedJSON.service.temperatures);
+                const apex = JSON.parse(apextemperatur);
+
+                this.log.info(apex[arrtemperatur[i]]);
+                this.setState('stats' + '.temperature.' + arrtemperatur[i], {
+                    val: apex[arrtemperatur[i]],
+                    ack: true,
                 });
-                this.setState('stats' + '.temperature.apex_1', { val: apextemperatur.apex_1, ack: true });
             }
         } catch (error) {
             this.log.error(error);

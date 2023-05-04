@@ -191,6 +191,8 @@ class Frigate extends utils.Adapter {
         const extractedJSON = JSON.parse(obj.val);
         const arrtemperatur = String(Object.keys(extractedJSON.service.temperatures)).split(',');
         const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
+        const apextemperatur = JSON.stringify(extractedJSON.service.temperatures);
+        const apex = JSON.parse(apextemperatur);
         this.log.debug(`changed: ${obj.val}`);
         try {
             for (let i = 0; i < arrtemperatur.length; i++) {
@@ -207,10 +209,6 @@ class Frigate extends utils.Adapter {
                     },
                     native: {},
                 });
-                const apextemperatur = JSON.stringify(extractedJSON.service.temperatures);
-                const apex = JSON.parse(apextemperatur);
-
-                this.log.info(apex[arrtemperatur[i]]);
                 this.setState('stats' + '.temperature.' + arrtemperatur[i], {
                     val: apex[arrtemperatur[i]],
                     ack: true,

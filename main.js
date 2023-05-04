@@ -303,7 +303,10 @@ class Frigate extends utils.Adapter {
         const eventtype = extractedJSON.type;
         const id1 = beforecamera + '.event';
         const id2 = beforecamera + '.objects.' + beforelabel;
-        const weburl = 'http://' + this.config.friurl;
+        let weburl;
+        if (this.config.friurl.match('http://') == null)
+            weburl = 'http://' + this.config.friurl;
+        else weburl = this.config.friurl;
         const websnap = weburl + '//api/events/' + afterid + '/snapshot.jpg';
         const webclip = weburl + '//api/events/' + afterid + '/clip.mp4';
         this.log.debug(`changed: ${obj.val}`);

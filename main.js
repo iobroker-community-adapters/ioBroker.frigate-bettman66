@@ -219,6 +219,18 @@ class Frigate extends utils.Adapter {
             for (let i = 0; i < arrstorage.length; i++) {
                 const sto = JSON.stringify(stor[arrstorage[i]]);
                 const st = JSON.parse(sto);
+                let sunit, tval, uval, fval;
+                if (st['mount_type'] == 'tmpfs') {
+                    sunit = 'MB';
+                    tval = st['total'];
+                    uval = st['used'];
+                    fval = st['free'];
+                } else {
+                    sunit = 'GB';
+                    tval = (st['total'] / 1000).toFixed(2);
+                    uval = (st['used'] / 1000).toFixed(2);
+                    fval = (st['free'] / 1000).toFixed(2);
+                }
                 this.log.debug(JSON.stringify(st));
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.total', {
                     type: 'state',
@@ -228,13 +240,13 @@ class Frigate extends utils.Adapter {
                         write: false,
                         name: arrstorage[i],
                         role: 'value',
-                        unit: '',
+                        unit: sunit,
                         def: 0,
                     },
                     native: {},
                 });
                 this.setState('stats' + '.storage.' + arrstorage[i] + '.total', {
-                    val: st['total'],
+                    val: tval,
                     ack: true,
                 });
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.used', {
@@ -245,13 +257,13 @@ class Frigate extends utils.Adapter {
                         write: false,
                         name: arrstorage[i],
                         role: 'value',
-                        unit: '',
+                        unit: sunit,
                         def: 0,
                     },
                     native: {},
                 });
                 this.setState('stats' + '.storage.' + arrstorage[i] + '.used', {
-                    val: st['used'],
+                    val: uval,
                     ack: true,
                 });
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.free', {
@@ -262,13 +274,13 @@ class Frigate extends utils.Adapter {
                         write: false,
                         name: arrstorage[i],
                         role: 'value',
-                        unit: '',
+                        unit: sunit,
                         def: 0,
                     },
                     native: {},
                 });
                 this.setState('stats' + '.storage.' + arrstorage[i] + '.free', {
-                    val: st['free'],
+                    val: fval,
                     ack: true,
                 });
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.mount_type', {

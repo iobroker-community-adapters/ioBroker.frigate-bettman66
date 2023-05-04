@@ -194,7 +194,7 @@ class Frigate extends utils.Adapter {
         const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
         const arrstor = JSON.stringify(extractedJSON.service.storage);
         const stor = JSON.parse(arrstor);
-        this.log.info(JSON.stringify(stor));
+        this.log.debug(JSON.stringify(stor));
         this.log.debug(`changed: ${obj.val}`);
         try {
             for (let i = 0; i < arrtemperatur.length; i++) {

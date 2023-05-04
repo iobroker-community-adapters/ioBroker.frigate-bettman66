@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.7",
+        "version": "0.1.8",
         "news": {
+            "0.1.8": {
+                "en": "add storage info",
+                "de": "Speicherinformationen hinzufügen",
+                "ru": "добавить информацию о хранилище",
+                "pt": "adicionar informações de armazenamento",
+                "nl": "opslaginformatie toevoegen",
+                "fr": "ajouter des informations de stockage",
+                "it": "aggiungere informazioni di archiviazione",
+                "es": "agregar información de almacenamiento",
+                "pl": "dodaj informacje o pamięci",
+                "uk": "додати інформацію про зберігання",
+                "zh-cn": "添加存储信息"
+            },
             "0.1.7": {
                 "en": "add switch",
                 "de": "Schalter hinzufügen",

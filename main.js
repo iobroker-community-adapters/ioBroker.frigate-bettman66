@@ -202,24 +202,26 @@ class Frigate extends utils.Adapter {
         this.log.debug(JSON.stringify(stor));
         this.log.debug(`changed: ${obj.val}`);
         try {
-            for (let i = 0; i < arrtemperatur.length; i++) {
-                await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
-                    type: 'state',
-                    common: {
-                        type: 'number',
-                        read: true,
-                        write: false,
-                        name: arrtemperatur[i],
-                        role: 'value.temperature',
-                        unit: '  C',
-                        def: 0,
-                    },
-                    native: {},
-                });
-                this.setState('stats' + '.temperature.' + arrtemperatur[i], {
-                    val: apex[arrtemperatur[i]],
-                    ack: true,
-                });
+            if (arrtemperatur[0] != "") {
+                for (let i = 0; i < arrtemperatur.length; i++) {
+                    await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
+                        type: 'state',
+                        common: {
+                            type: 'number',
+                            read: true,
+                            write: false,
+                            name: arrtemperatur[i],
+                            role: 'value.temperature',
+                            unit: '  C',
+                            def: 0,
+                        },
+                        native: {},
+                    });
+                    this.setState('stats' + '.temperature.' + arrtemperatur[i], {
+                        val: apex[arrtemperatur[i]],
+                        ack: true,
+                    });
+                }
             }
             for (let i = 0; i < arrstorage.length; i++) {
                 const sto = JSON.stringify(stor[arrstorage[i]]);

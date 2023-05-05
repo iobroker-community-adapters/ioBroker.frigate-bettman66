@@ -203,6 +203,7 @@ class Frigate extends utils.Adapter {
         this.log.debug(JSON.stringify(apex));
         this.log.debug(`changed: ${obj.val}`);
         try {
+            this.setState('available', { val: 'online', ack: true });
             if (arrtemperatur[0] != "") {
                 for (let i = 0; i < arrtemperatur.length; i++) {
                     await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
@@ -475,7 +476,6 @@ class Frigate extends utils.Adapter {
                 break;
             case id0 + '.stats':
                 this.onStatsChange(state);
-                this.setState('available', { val: 'online', ack: true });
                 break;
             case id0 + '.available':
                 this.setState('available', { val: state.val, ack: true });

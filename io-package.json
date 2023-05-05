@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.8",
+        "version": "0.1.9",
         "news": {
+            "0.1.9": {
+                "en": "add online",
+                "de": "online hinzufügen",
+                "ru": "добавить онлайн",
+                "pt": "adicionar online",
+                "nl": "online toevoegen",
+                "fr": "ajouter en ligne",
+                "it": "aggiungere in linea",
+                "es": "añadir en línea",
+                "pl": "dodać w Internecie",
+                "uk": "додати онлайн",
+                "zh-cn": "在线添加"
+            },
             "0.1.8": {
                 "en": "add storage info",
                 "de": "Speicherinformationen hinzufügen",
@@ -330,7 +343,7 @@
                 "role": "indicator",
                 "read": true,
                 "write": false,
-                "def": ""
+                "def": "offline"
             },
             "native": {}
         }

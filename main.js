@@ -72,7 +72,7 @@ class Frigate extends utils.Adapter {
             `onAdapterobjectChangebegin -> adapterID: ${adapterID} id: ${id} changed: ${state.val} (ack = ${state.ack})`,
         );
         if (idArr[3] == 'restart') {
-            await this.setForeignObjectNotExistsAsync(this.config.mqttObject + '.restart', {
+            await this.setForeignObjectNotExistsAsync(obj, {
                 type: 'state',
                 common: {
                     name: 'restart',

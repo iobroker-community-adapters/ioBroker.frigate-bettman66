@@ -10,6 +10,17 @@
  */
 
 const utils = require('@iobroker/adapter-core');
+let weburl;
+
+function seconds_to_days_hours_mins_secs_str(seconds) { // day, h, m and s
+    const days = Math.floor(seconds / (24 * 60 * 60));
+    seconds -= days * (24 * 60 * 60);
+    const hours = Math.floor(seconds / (60 * 60));
+    seconds -= hours * (60 * 60);
+    const minutes = Math.floor(seconds / (60));
+    seconds -= minutes * (60);
+    return ((0 < days) ? (days + ' day: ') : '') + hours + 'h:' + minutes + 'm:' + seconds + 's';
+}
 
 class Frigate extends utils.Adapter {
     /**
@@ -30,7 +41,12 @@ class Frigate extends utils.Adapter {
      */
     async onReady() {
         // Initialize your adapter here
+        if (this.config.friurl.match('http://') == null)
+            weburl = 'http://' + this.config.friurl;
+        else weburl = this.config.friurl;
+        this.setState('available', { val: 'offline', ack: true });
         this.log.info('MQTT Frigate Object: ' + this.config.mqttObject);
+        this.log.info('MQTT Frigate URL: ' + weburl);
         this.subscribeForeignStates(this.config.mqttObject + '.*');
         this.subscribeStates('*');
     }
@@ -188,6 +204,9 @@ class Frigate extends utils.Adapter {
 
     async onStatsChange(obj) {
         const extractedJSON = JSON.parse(obj.val);
+        const version = extractedJSON.service.version;
+        const latest = extractedJSON.service.latest_version;
+        const uptime = seconds_to_days_hours_mins_secs_str(extractedJSON.service.uptime);
         const arrtemperatur = String(Object.keys(extractedJSON.service.temperatures)).split(',');
         const apextemperatur = JSON.stringify(extractedJSON.service.temperatures);
         const apex = JSON.parse(apextemperatur);
@@ -195,30 +214,49 @@ class Frigate extends utils.Adapter {
         const arrstor = JSON.stringify(extractedJSON.service.storage);
         const stor = JSON.parse(arrstor);
         this.log.debug(JSON.stringify(stor));
+        this.log.debug(JSON.stringify(apex));
         this.log.debug(`changed: ${obj.val}`);
         try {
-            for (let i = 0; i < arrtemperatur.length; i++) {
-                await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
-                    type: 'state',
-                    common: {
-                        type: 'number',
-                        read: true,
-                        write: false,
-                        name: arrtemperatur[i],
-                        role: 'value.temperature',
-                        unit: '  C',
-                        def: 0,
-                    },
-                    native: {},
-                });
-                this.setState('stats' + '.temperature.' + arrtemperatur[i], {
-                    val: apex[arrtemperatur[i]],
-                    ack: true,
-                });
+            this.setState('available', { val: 'online', ack: true });
+            this.setState('version', { val: version, ack: true });
+            this.setState('latest_version', { val: latest, ack: true });
+            this.setState('uptime', { val: uptime, ack: true });
+            if (arrtemperatur[0] != '') {
+                for (let i = 0; i < arrtemperatur.length; i++) {
+                    await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
+                        type: 'state',
+                        common: {
+                            type: 'number',
+                            read: true,
+                            write: false,
+                            name: arrtemperatur[i],
+                            role: 'value.temperature',
+                            unit: '  C',
+                            def: 0,
+                        },
+                        native: {},
+                    });
+                    this.setState('stats' + '.temperature.' + arrtemperatur[i], {
+                        val: apex[arrtemperatur[i]],
+                        ack: true,
+                    });
+                }
             }
             for (let i = 0; i < arrstorage.length; i++) {
                 const sto = JSON.stringify(stor[arrstorage[i]]);
                 const st = JSON.parse(sto);
+                let sunit, tval, uval, fval;
+                if (st['mount_type'] == 'tmpfs') {
+                    sunit = 'MB';
+                    tval = Number(st['total']);
+                    uval = Number(st['used']);
+                    fval = Number(st['free']);
+                } else {
+                    sunit = 'GB';
+                    tval = Number((st['total'] / 1000).toFixed(2));
+                    uval = Number((st['used'] / 1000).toFixed(2));
+                    fval = Number((st['free'] / 1000).toFixed(2));
+                }
                 this.log.debug(JSON.stringify(st));
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.total', {
                     type: 'state',
@@ -228,13 +266,13 @@ class Frigate extends utils.Adapter {
                         write: false,
                         name: arrstorage[i],
                         role: 'value',
-                        unit: '',
+                        unit: sunit,
                         def: 0,
                     },
                     native: {},
                 });
                 this.setState('stats' + '.storage.' + arrstorage[i] + '.total', {
-                    val: st['total'],
+                    val: tval,
                     ack: true,
                 });
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.used', {
@@ -245,13 +283,13 @@ class Frigate extends utils.Adapter {
                         write: false,
                         name: arrstorage[i],
                         role: 'value',
-                        unit: '',
+                        unit: sunit,
                         def: 0,
                     },
                     native: {},
                 });
                 this.setState('stats' + '.storage.' + arrstorage[i] + '.used', {
-                    val: st['used'],
+                    val: uval,
                     ack: true,
                 });
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.free', {
@@ -262,13 +300,13 @@ class Frigate extends utils.Adapter {
                         write: false,
                         name: arrstorage[i],
                         role: 'value',
-                        unit: '',
+                        unit: sunit,
                         def: 0,
                     },
                     native: {},
                 });
                 this.setState('stats' + '.storage.' + arrstorage[i] + '.free', {
-                    val: st['free'],
+                    val: fval,
                     ack: true,
                 });
                 await this.setObjectNotExistsAsync('stats' + '.storage.' + arrstorage[i] + '.mount_type', {
@@ -303,7 +341,6 @@ class Frigate extends utils.Adapter {
         const eventtype = extractedJSON.type;
         const id1 = beforecamera + '.event';
         const id2 = beforecamera + '.objects.' + beforelabel;
-        const weburl = 'http://' + this.config.friurl;
         const websnap = weburl + '//api/events/' + afterid + '/snapshot.jpg';
         const webclip = weburl + '//api/events/' + afterid + '/clip.mp4';
         this.log.debug(`changed: ${obj.val}`);

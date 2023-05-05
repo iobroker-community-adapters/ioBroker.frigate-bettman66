@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.8",
+        "version": "0.1.9",
         "news": {
+            "0.1.9": {
+                "en": "add online",
+                "de": "online hinzufügen",
+                "ru": "добавить онлайн",
+                "pt": "adicionar online",
+                "nl": "online toevoegen",
+                "fr": "ajouter en ligne",
+                "it": "aggiungere in linea",
+                "es": "añadir en línea",
+                "pl": "dodać w Internecie",
+                "uk": "додати онлайн",
+                "zh-cn": "在线添加"
+            },
             "0.1.8": {
                 "en": "add storage info",
                 "de": "Speicherinformationen hinzufügen",
@@ -328,6 +341,48 @@
                 "desc": "online",
                 "type": "string",
                 "role": "indicator",
+                "read": true,
+                "write": false,
+                "def": "offline"
+            },
+            "native": {}
+        },
+        {
+            "_id": "uptime",
+            "type": "state",
+            "common": {
+                "name": "frigate uptime",
+                "desc": "onlineuptime",
+                "type": "string",
+                "role": "value.uptime",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
+        },
+        {
+            "_id": "version",
+            "type": "state",
+            "common": {
+                "name": "frigate version",
+                "desc": "version",
+                "type": "string",
+                "role": "value.version",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
+        },
+        {
+            "_id": "latest_version",
+            "type": "state",
+            "common": {
+                "name": "frigate latest",
+                "desc": "latest_version",
+                "type": "string",
+                "role": "value.version",
                 "read": true,
                 "write": false,
                 "def": ""

@@ -354,7 +354,7 @@
                 "name": "frigate uptime",
                 "desc": "onlineuptime",
                 "type": "number",
-                "role": "value.time",
+                "role": "value.uptime",
                 "read": true,
                 "write": false,
                 "def": 0

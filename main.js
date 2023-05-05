@@ -71,7 +71,7 @@ class Frigate extends utils.Adapter {
         this.log.debug(
             `onAdapterobjectChangebegin -> adapterID: ${adapterID} id: ${id} changed: ${state.val} (ack = ${state.ack})`,
         );
-        if (idArr[3] == 'restart') {
+        if (idArr[2] == 'restart') {
             await this.setForeignObjectNotExistsAsync(obj, {
                 type: 'state',
                 common: {

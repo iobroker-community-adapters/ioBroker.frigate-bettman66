@@ -205,7 +205,7 @@ class Frigate extends utils.Adapter {
         this.log.debug(`changed: ${obj.val}`);
         try {
             this.setState('available', { val: 'online', ack: true });
-            if (arrtemperatur[0] != "") {
+            if (arrtemperatur[0] != '') {
                 for (let i = 0; i < arrtemperatur.length; i++) {
                     await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
                         type: 'state',

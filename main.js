@@ -34,6 +34,7 @@ class Frigate extends utils.Adapter {
         if (this.config.friurl.match('http://') == null)
             weburl = 'http://' + this.config.friurl;
         else weburl = this.config.friurl;
+        this.setState('available', { val: 'offline', ack: true });
         this.log.info('MQTT Frigate Object: ' + this.config.mqttObject);
         this.log.info('MQTT Frigate URL: ' + weburl);
         this.subscribeForeignStates(this.config.mqttObject + '.*');

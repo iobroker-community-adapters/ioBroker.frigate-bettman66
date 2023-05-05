@@ -19,7 +19,7 @@ function seconds_to_days_hours_mins_secs_str(seconds) { // day, h, m and s
     seconds -= hours * (60 * 60);
     const minutes = Math.floor(seconds / (60));
     seconds -= minutes * (60);
-    return ((0 < days) ? (days + ' day, ') : '') + hours + 'h, ' + minutes + 'm and ' + seconds + 's';
+    return ((0 < days) ? (days + ' day: ') : '') + hours + 'h:' + minutes + 'm:' + seconds + 's';
 }
 
 class Frigate extends utils.Adapter {

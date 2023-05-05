@@ -67,24 +67,16 @@ class Frigate extends utils.Adapter {
         const type = typeof state.val;
         const idArr = id.split('.');
         const adapterID = idArr[0] + '.' + idArr[1];
-        this.log.debug(
-            `onAdapterobjectChangebegin -> adapterID: ${adapterID} id: ${id} changed: ${state.val} (ack = ${state.ack})`,
-        );
+        const obj = id.replace(adapterID, this.config.mqttObject);
         if (type == 'boolean') {
-            let def;
-            const obj = id.replace(adapterID, this.config.mqttObject);
             if (state.val) {
-                def = 'ON';
+                state.val = 'ON';
             } else {
-                def = 'OFF';
+                state.val = 'OFF';
             }
-            this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${def} (ack = ${state.ack})`);
-            this.setForeignState(obj, { val: def, ack: false });
-        } else if (type == 'number') {
-            const obj = id.replace(adapterID, this.config.mqttObject);
-            this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${state.val} (ack = ${state.ack})`);
-            this.setForeignState(obj, { val: state.val, ack: false });
         }
+        this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${state.val} (ack = ${state.ack})`);
+        this.setForeignState(obj, { val: state.val, ack: false });
     }
 
     async onObjectChange(id, state) {

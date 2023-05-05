@@ -67,12 +67,31 @@ class Frigate extends utils.Adapter {
         const type = typeof state.val;
         const idArr = id.split('.');
         const adapterID = idArr[0] + '.' + idArr[1];
+        const obj = id.replace(adapterID, this.config.mqttObject);
         this.log.debug(
             `onAdapterobjectChangebegin -> adapterID: ${adapterID} id: ${id} changed: ${state.val} (ack = ${state.ack})`,
         );
+        if (idArr[3] == 'restart') {
+            await this.setForeignObjectNotExistsAsync(this.config.mqttObject + '.restart', {
+                type: 'state',
+                common: {
+                    name: 'restart',
+                    type: 'boolean',
+                    role: 'switch',
+                    read: true,
+                    write: true,
+                    def: state.val,
+                },
+                native: {},
+            });
+            this.setForeignState(obj, { val: state.val, ack: false });
+            setTimeout(() => {
+                this.setForeignState(obj, { val: false, ack: false });
+            }, 500);
+            return;
+        }
         if (type == 'boolean') {
             let def;
-            const obj = id.replace(adapterID, this.config.mqttObject);
             if (state.val) {
                 def = 'ON';
             } else {
@@ -81,7 +100,6 @@ class Frigate extends utils.Adapter {
             this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${def} (ack = ${state.ack})`);
             this.setForeignState(obj, { val: def, ack: false });
         } else if (type == 'number') {
-            const obj = id.replace(adapterID, this.config.mqttObject);
             this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${state.val} (ack = ${state.ack})`);
             this.setForeignState(obj, { val: state.val, ack: false });
         }

@@ -346,6 +346,48 @@
                 "def": "offline"
             },
             "native": {}
+        },
+        {
+            "_id": "uptime",
+            "type": "state",
+            "common": {
+                "name": "frigate uptime",
+                "desc": "onlineuptime",
+                "type": "number",
+                "role": "value.time",
+                "read": true,
+                "write": false,
+                "def": 0
+            },
+            "native": {}
+        },
+        {
+            "_id": "version",
+            "type": "state",
+            "common": {
+                "name": "frigate version",
+                "desc": "version",
+                "type": "string",
+                "role": "value.version",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
+        },
+        {
+            "_id": "latest_version",
+            "type": "state",
+            "common": {
+                "name": "frigate latest",
+                "desc": "latest_version",
+                "type": "string",
+                "role": "value.version",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
         }
     ]
 }

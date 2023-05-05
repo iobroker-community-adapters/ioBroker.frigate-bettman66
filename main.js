@@ -194,6 +194,9 @@ class Frigate extends utils.Adapter {
 
     async onStatsChange(obj) {
         const extractedJSON = JSON.parse(obj.val);
+        const version = extractedJSON.service.version;
+        const latest = extractedJSON.service.latest_version;
+        const uptime = extractedJSON.service.uptime;
         const arrtemperatur = String(Object.keys(extractedJSON.service.temperatures)).split(',');
         const apextemperatur = JSON.stringify(extractedJSON.service.temperatures);
         const apex = JSON.parse(apextemperatur);
@@ -205,6 +208,9 @@ class Frigate extends utils.Adapter {
         this.log.debug(`changed: ${obj.val}`);
         try {
             this.setState('available', { val: 'online', ack: true });
+            this.setState('version', { val: version, ack: true });
+            this.setState('latest_version', { val: latest, ack: true });
+            this.setState('uptime', { val: uptime, ack: true });
             if (arrtemperatur[0] != '') {
                 for (let i = 0; i < arrtemperatur.length; i++) {
                     await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {

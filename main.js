@@ -200,6 +200,7 @@ class Frigate extends utils.Adapter {
         const arrstor = JSON.stringify(extractedJSON.service.storage);
         const stor = JSON.parse(arrstor);
         this.log.debug(JSON.stringify(stor));
+        this.log.debug(JSON.stringify(apex));
         this.log.debug(`changed: ${obj.val}`);
         try {
             if (arrtemperatur[0] != "") {
@@ -474,6 +475,7 @@ class Frigate extends utils.Adapter {
                 break;
             case id0 + '.stats':
                 this.onStatsChange(state);
+                this.setState('available', { val: 'online', ack: true });
                 break;
             case id0 + '.available':
                 this.setState('available', { val: state.val, ack: true });

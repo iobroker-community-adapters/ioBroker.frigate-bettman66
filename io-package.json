@@ -388,20 +388,6 @@
                 "def": ""
             },
             "native": {}
-        },
-        {
-            "_id": "restart",
-            "type": "state",
-            "common": {
-                "name": "frigate restart",
-                "desc": "restart",
-                "type": "boolean",
-                "role": "switch",
-                "read": true,
-                "write": true,
-                "def": false
-            },
-            "native": {}
         }
     ]
 }

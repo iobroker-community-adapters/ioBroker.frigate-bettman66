@@ -223,7 +223,7 @@ class Frigate extends utils.Adapter {
                             write: false,
                             name: arrtemperatur[i],
                             role: 'value.temperature',
-                            unit: '  C',
+                            unit: '°C',
                             def: 0,
                         },
                         native: {},

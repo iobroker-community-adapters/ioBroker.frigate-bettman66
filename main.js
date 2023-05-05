@@ -12,6 +12,16 @@
 const utils = require('@iobroker/adapter-core');
 let weburl;
 
+function seconds_to_days_hours_mins_secs_str(seconds) { // day, h, m and s
+    const days = Math.floor(seconds / (24 * 60 * 60));
+    seconds -= days * (24 * 60 * 60);
+    const hours = Math.floor(seconds / (60 * 60));
+    seconds -= hours * (60 * 60);
+    const minutes = Math.floor(seconds / (60));
+    seconds -= minutes * (60);
+    return ((0 < days) ? (days + ' day, ') : '') + hours + 'h, ' + minutes + 'm and ' + seconds + 's';
+}
+
 class Frigate extends utils.Adapter {
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -196,7 +206,7 @@ class Frigate extends utils.Adapter {
         const extractedJSON = JSON.parse(obj.val);
         const version = extractedJSON.service.version;
         const latest = extractedJSON.service.latest_version;
-        const uptime = extractedJSON.service.uptime;
+        const uptime = seconds_to_days_hours_mins_secs_str(extractedJSON.service.uptime);
         const arrtemperatur = String(Object.keys(extractedJSON.service.temperatures)).split(',');
         const apextemperatur = JSON.stringify(extractedJSON.service.temperatures);
         const apex = JSON.parse(apextemperatur);

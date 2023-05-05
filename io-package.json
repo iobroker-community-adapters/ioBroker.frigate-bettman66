@@ -353,11 +353,11 @@
             "common": {
                 "name": "frigate uptime",
                 "desc": "onlineuptime",
-                "type": "number",
+                "type": "string",
                 "role": "value.uptime",
                 "read": true,
                 "write": false,
-                "def": 0
+                "def": ""
             },
             "native": {}
         },

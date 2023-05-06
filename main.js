@@ -97,6 +97,31 @@ class Frigate extends utils.Adapter {
                     },
                     native: {},
                 });
+                const set = obj.replace('state', 'set');
+                await this.setObjectNotExistsAsync(set, {
+                    type: 'state',
+                    common: {
+                        name: set,
+                        type: 'boolean',
+                        role: 'switch',
+                        read: true,
+                        write: true,
+                        def: state.val
+                    },
+                    native: {},
+                });
+                await this.setForeignObjectNotExistsAsync(m_id + '.' + set, {
+                    type: 'state',
+                    common: {
+                        name: set,
+                        type: 'string',
+                        role: 'switch',
+                        read: true,
+                        write: true,
+                        def: state.val
+                    },
+                    native: {},
+                });
             } else if (type.toString() == 'number') {
                 await this.setObjectNotExistsAsync(obj, {
                     type: 'state',
@@ -106,64 +131,35 @@ class Frigate extends utils.Adapter {
                         role: 'value',
                         read: true,
                         write: false,
-                        def: state.val,
+                        def: state.val
                     },
                     native: {},
                 });
-            }
-            if (type.toString() == 'string' || type.toString() == 'number') {
                 const set = obj.replace('state', 'set');
-                if (type.toString() == 'string') {
-                    await this.setObjectNotExistsAsync(set, {
-                        type: 'state',
-                        common: {
-                            name: set,
-                            type: 'boolean',
-                            role: 'switch',
-                            read: true,
-                            write: true,
-                            def: state.val
-                        },
-                        native: {},
-                    });
-                    await this.setForeignObjectNotExistsAsync(m_id + '.' + set, {
-                        type: 'state',
-                        common: {
-                            name: set,
-                            type: 'string',
-                            role: 'switch',
-                            read: true,
-                            write: true,
-                            def: state.val
-                        },
-                        native: {},
-                    });
-                } else {
-                    await this.setObjectNotExistsAsync(set, {
-                        type: 'state',
-                        common: {
-                            name: set,
-                            type: 'number',
-                            role: 'value',
-                            read: true,
-                            write: true,
-                            def: state.val
-                        },
-                        native: {},
-                    });
-                    await this.setForeignObjectNotExistsAsync(m_id + '.' + set, {
-                        type: 'state',
-                        common: {
-                            name: set,
-                            type: 'number',
-                            role: 'value',
-                            read: true,
-                            write: true,
-                            def: state.val
-                        },
-                        native: {},
-                    });
-                }
+                await this.setObjectNotExistsAsync(set, {
+                    type: 'state',
+                    common: {
+                        name: set,
+                        type: 'number',
+                        role: 'value',
+                        read: true,
+                        write: true,
+                        def: state.val
+                    },
+                    native: {},
+                });
+                await this.setForeignObjectNotExistsAsync(m_id + '.' + set, {
+                    type: 'state',
+                    common: {
+                        name: set,
+                        type: 'number',
+                        role: 'value',
+                        read: true,
+                        write: true,
+                        def: state.val
+                    },
+                    native: {},
+                });
             }
         } else if (obj0 == null) {
             this.setState(obj, { val: state.val, ack: true });

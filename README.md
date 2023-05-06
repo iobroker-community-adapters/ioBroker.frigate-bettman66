@@ -32,6 +32,10 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 -   [ioBroker Forum Adapter Thread](https://forum.iobroker.net/topic/64928/test-frigate-adapter-v0-0-1-alpha)
 
 ## Changelog
+### 0.2.1
+
+-   (bettman66) add version
+
 ### 0.2.0
 
 -   (bettman66) add uptime and more

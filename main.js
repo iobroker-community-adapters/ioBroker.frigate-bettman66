@@ -11,6 +11,7 @@
 
 const utils = require('@iobroker/adapter-core');
 let weburl;
+let m_id;
 
 function seconds_to_days_hours_mins_secs_str(seconds) { // day, h, m and s
     const days = Math.floor(seconds / (24 * 60 * 60));
@@ -44,10 +45,11 @@ class Frigate extends utils.Adapter {
         if (this.config.friurl.match('http://') == null)
             weburl = 'http://' + this.config.friurl;
         else weburl = this.config.friurl;
+        m_id = this.config.mqttObject;
         this.setState('available', { val: 'offline', ack: true });
-        this.log.info('MQTT Frigate Object: ' + this.config.mqttObject);
+        this.log.info('MQTT Frigate Object: ' + m_id);
         this.log.info('MQTT Frigate URL: ' + weburl);
-        this.subscribeForeignStates(this.config.mqttObject + '.*');
+        this.subscribeForeignStates(m_id + '.*');
         this.subscribeStates('*');
     }
 
@@ -67,41 +69,22 @@ class Frigate extends utils.Adapter {
         const type = typeof state.val;
         const idArr = id.split('.');
         const adapterID = idArr[0] + '.' + idArr[1];
-        this.log.debug(
-            `onAdapterobjectChangebegin -> adapterID: ${adapterID} id: ${id} changed: ${state.val} (ack = ${state.ack})`,
-        );
-        if (type == 'boolean') {
-            let def;
-            const obj = id.replace(adapterID, this.config.mqttObject);
-            if (state.val) {
-                def = 'ON';
-            } else {
-                def = 'OFF';
-            }
-            this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${def} (ack = ${state.ack})`);
-            this.setForeignState(obj, { val: def, ack: false });
-        } else if (type == 'number') {
-            const obj = id.replace(adapterID, this.config.mqttObject);
-            this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${state.val} (ack = ${state.ack})`);
-            this.setForeignState(obj, { val: state.val, ack: false });
-        }
+        const obj = id.replace(adapterID, m_id);
+        if (type.toString() == 'boolean') if (state.val) state.val = 'ON'; else state.val = 'OFF';
+        this.log.debug(`onAdapterobjectChangeend -> id: ${obj} changed: ${state.val} (ack = ${state.ack})`);
+        this.setForeignState(obj, { val: state.val, ack: false });
     }
 
     async onObjectChange(id, state) {
-        const obj = id.replace(this.config.mqttObject + '.', '');
+        const obj = id.replace(m_id + '.', '');
         const obj0 = obj.match('set');
         const type = typeof state.val;
         const testobj = await this.getStateAsync(obj);
         this.log.debug(`onObjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         this.log.debug(`Object available: ${testobj} type: ${type}`);
+        if (type.toString() == 'string') if (state.val == 'ON') state.val = true; else if (state.val == 'OFF') state.val = false;
         if (testobj == null) {
             if (type.toString() == 'string') {
-                let def;
-                if (state.val == 'ON') {
-                    def = true;
-                } else {
-                    def = false;
-                }
                 await this.setObjectNotExistsAsync(obj, {
                     type: 'state',
                     common: {
@@ -110,7 +93,32 @@ class Frigate extends utils.Adapter {
                         role: 'value',
                         read: true,
                         write: false,
-                        def: def,
+                        def: state.val
+                    },
+                    native: {},
+                });
+                const set = obj.replace('state', 'set');
+                await this.setObjectNotExistsAsync(set, {
+                    type: 'state',
+                    common: {
+                        name: set,
+                        type: 'boolean',
+                        role: 'switch',
+                        read: true,
+                        write: true,
+                        def: state.val
+                    },
+                    native: {},
+                });
+                await this.setForeignObjectNotExistsAsync(m_id + '.' + set, {
+                    type: 'state',
+                    common: {
+                        name: set,
+                        type: 'string',
+                        role: 'switch',
+                        read: true,
+                        write: true,
+                        def: 'OFF'
                     },
                     native: {},
                 });
@@ -123,82 +131,38 @@ class Frigate extends utils.Adapter {
                         role: 'value',
                         read: true,
                         write: false,
-                        def: state.val,
+                        def: state.val
+                    },
+                    native: {},
+                });
+                const set = obj.replace('state', 'set');
+                await this.setObjectNotExistsAsync(set, {
+                    type: 'state',
+                    common: {
+                        name: set,
+                        type: 'number',
+                        role: 'value',
+                        read: true,
+                        write: true,
+                        def: state.val
+                    },
+                    native: {},
+                });
+                await this.setForeignObjectNotExistsAsync(m_id + '.' + set, {
+                    type: 'state',
+                    common: {
+                        name: set,
+                        type: 'number',
+                        role: 'value',
+                        read: true,
+                        write: true,
+                        def: state.val
                     },
                     native: {},
                 });
             }
-
-            if (type.toString() == 'string' || type.toString() == 'number') {
-                const set = obj.replace('state', 'set');
-                let def;
-                if (type.toString() == 'string') {
-                    if (state.val == 'ON') {
-                        def = true;
-                    } else {
-                        def = false;
-                    }
-                    await this.setObjectNotExistsAsync(set, {
-                        type: 'state',
-                        common: {
-                            name: set,
-                            type: 'boolean',
-                            role: 'switch',
-                            read: true,
-                            write: true,
-                            def: def,
-                        },
-                        native: {},
-                    });
-                    await this.setForeignObjectNotExistsAsync(this.config.mqttObject + '.' + set, {
-                        type: 'state',
-                        common: {
-                            name: set,
-                            type: 'string',
-                            role: 'switch',
-                            read: true,
-                            write: true,
-                            def: state.val,
-                        },
-                        native: {},
-                    });
-                } else {
-                    await this.setObjectNotExistsAsync(set, {
-                        type: 'state',
-                        common: {
-                            name: set,
-                            type: 'number',
-                            role: 'value',
-                            read: true,
-                            write: true,
-                            def: state.val,
-                        },
-                        native: {},
-                    });
-                    await this.setForeignObjectNotExistsAsync(this.config.mqttObject + '.' + set, {
-                        type: 'state',
-                        common: {
-                            name: set,
-                            type: 'number',
-                            role: 'value',
-                            read: true,
-                            write: true,
-                            def: state.val,
-                        },
-                        native: {},
-                    });
-                }
-            }
         } else if (obj0 == null) {
-            if (type.toString() == 'string') {
-                let def;
-                if (state.val == 'ON') {
-                    def = true;
-                } else {
-                    def = false;
-                }
-                this.setState(obj, { val: def, ack: true });
-            } else this.setState(obj, { val: state.val, ack: true });
+            this.setState(obj, { val: state.val, ack: true });
         }
     }
 
@@ -231,7 +195,7 @@ class Frigate extends utils.Adapter {
                             write: false,
                             name: arrtemperatur[i],
                             role: 'value.temperature',
-                            unit: '  C',
+                            unit: '°C',
                             def: 0,
                         },
                         native: {},
@@ -361,7 +325,7 @@ class Frigate extends utils.Adapter {
                         role: 'indicator',
                         read: true,
                         write: false,
-                        def: false,
+                        def: false
                     },
                     native: {},
                 });
@@ -377,7 +341,7 @@ class Frigate extends utils.Adapter {
                         role: 'indicator',
                         read: true,
                         write: false,
-                        def: false,
+                        def: false
                     },
                     native: {},
                 });
@@ -394,7 +358,7 @@ class Frigate extends utils.Adapter {
                         role: 'value',
                         read: true,
                         write: false,
-                        def: 'none',
+                        def: 'none'
                     },
                     native: {},
                 });
@@ -412,7 +376,7 @@ class Frigate extends utils.Adapter {
                             role: 'value',
                             read: true,
                             write: false,
-                            def: '',
+                            def: ''
                         },
                         native: {},
                     });
@@ -434,7 +398,7 @@ class Frigate extends utils.Adapter {
                             role: 'value',
                             read: true,
                             write: false,
-                            def: '',
+                            def: ''
                         },
                         native: {},
                     });
@@ -459,7 +423,7 @@ class Frigate extends utils.Adapter {
                         name: 'detection rate',
                         role: 'value.score',
                         unit: '%',
-                        def: 0,
+                        def: 0
                     },
                     native: {},
                 });
@@ -483,22 +447,22 @@ class Frigate extends utils.Adapter {
      */
     onStateChange(id, state) {
         if (!id || !state) return;
-        const id0 = this.config.mqttObject;
-        const obj0 = id.match(id0);
-        if ((obj0 == null && state.ack) || (obj0 != null && !state.ack)) return;
+        const obj0 = id.match(m_id);
+        if (obj0 != null) state.ack = false;
+        if (state.ack) return;
         this.log.debug(`id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         switch (id) {
-            case id0 + '.events':
+            case m_id + '.events':
                 this.onEventChange(state);
                 break;
-            case id0 + '.stats':
+            case m_id + '.stats':
                 this.onStatsChange(state);
                 break;
-            case id0 + '.available':
+            case m_id + '.available':
                 this.setState('available', { val: state.val, ack: true });
                 break;
             default:
-                if (!state.ack) this.onAdapterobjectChange(id, state);
+                if (obj0 == null) this.onAdapterobjectChange(id, state);
                 else this.onObjectChange(id, state);
                 break;
         }

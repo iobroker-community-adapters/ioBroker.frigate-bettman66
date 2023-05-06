@@ -89,7 +89,7 @@ class Frigate extends utils.Adapter {
         this.log.debug(`onObjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         this.log.debug(`Object available: ${testobj} type: ${type}`);
         if (testobj == null) {
-            if (type.toString() == 'string') {
+            if (type == 'string') {
                 let def;
                 if (state.val == 'ON') {
                     def = true;
@@ -108,7 +108,7 @@ class Frigate extends utils.Adapter {
                     },
                     native: {},
                 });
-            } else if (type.toString() == 'number') {
+            } else if (type == 'number') {
                 await this.setObjectNotExistsAsync(obj, {
                     type: 'state',
                     common: {
@@ -123,10 +123,10 @@ class Frigate extends utils.Adapter {
                 });
             }
 
-            if (type.toString() == 'string' || type.toString() == 'number') {
+            if (type == 'string' || type == 'number') {
                 const set = obj.replace('state', 'set');
                 let def;
-                if (type.toString() == 'string') {
+                if (type == 'string') {
                     if (state.val == 'ON') {
                         def = true;
                     } else {
@@ -184,7 +184,7 @@ class Frigate extends utils.Adapter {
                 }
             }
         } else if (obj0 == null) {
-            if (type.toString() == 'string') {
+            if (type == 'string') {
                 let def;
                 if (state.val == 'ON') {
                     def = true;

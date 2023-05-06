@@ -325,7 +325,7 @@ class Frigate extends utils.Adapter {
                         role: 'indicator',
                         read: true,
                         write: false,
-                        def: false,
+                        def: false
                     },
                     native: {},
                 });
@@ -341,7 +341,7 @@ class Frigate extends utils.Adapter {
                         role: 'indicator',
                         read: true,
                         write: false,
-                        def: false,
+                        def: false
                     },
                     native: {},
                 });
@@ -358,7 +358,7 @@ class Frigate extends utils.Adapter {
                         role: 'value',
                         read: true,
                         write: false,
-                        def: 'none',
+                        def: 'none'
                     },
                     native: {},
                 });
@@ -376,7 +376,7 @@ class Frigate extends utils.Adapter {
                             role: 'value',
                             read: true,
                             write: false,
-                            def: '',
+                            def: ''
                         },
                         native: {},
                     });
@@ -398,7 +398,7 @@ class Frigate extends utils.Adapter {
                             role: 'value',
                             read: true,
                             write: false,
-                            def: '',
+                            def: ''
                         },
                         native: {},
                     });
@@ -423,7 +423,7 @@ class Frigate extends utils.Adapter {
                         name: 'detection rate',
                         role: 'value.score',
                         unit: '%',
-                        def: 0,
+                        def: 0
                     },
                     native: {},
                 });

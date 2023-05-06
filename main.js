@@ -11,6 +11,7 @@
 
 const utils = require('@iobroker/adapter-core');
 let weburl;
+let m_id;
 
 function seconds_to_days_hours_mins_secs_str(seconds) { // day, h, m and s
     const days = Math.floor(seconds / (24 * 60 * 60));
@@ -44,10 +45,11 @@ class Frigate extends utils.Adapter {
         if (this.config.friurl.match('http://') == null)
             weburl = 'http://' + this.config.friurl;
         else weburl = this.config.friurl;
+        m_id = this.config.mqttObject;
         this.setState('available', { val: 'offline', ack: true });
-        this.log.info('MQTT Frigate Object: ' + this.config.mqttObject);
+        this.log.info('MQTT Frigate Object: ' + m_id);
         this.log.info('MQTT Frigate URL: ' + weburl);
-        this.subscribeForeignStates(this.config.mqttObject + '.*');
+        this.subscribeForeignStates(m_id + '.*');
         this.subscribeStates('*');
     }
 
@@ -67,7 +69,7 @@ class Frigate extends utils.Adapter {
         const type = typeof state.val;
         const idArr = id.split('.');
         const adapterID = idArr[0] + '.' + idArr[1];
-        const obj = id.replace(adapterID, this.config.mqttObject);
+        const obj = id.replace(adapterID, m_id);
         if (type == 'boolean') {
             if (state.val) {
                 state.val = 'ON';
@@ -80,7 +82,7 @@ class Frigate extends utils.Adapter {
     }
 
     async onObjectChange(id, state) {
-        const obj = id.replace(this.config.mqttObject + '.', '');
+        const obj = id.replace(m_id + '.', '');
         const obj0 = obj.match('set');
         const type = typeof state.val;
         const testobj = await this.getStateAsync(obj);
@@ -142,7 +144,7 @@ class Frigate extends utils.Adapter {
                         },
                         native: {},
                     });
-                    await this.setForeignObjectNotExistsAsync(this.config.mqttObject + '.' + set, {
+                    await this.setForeignObjectNotExistsAsync(m_id + '.' + set, {
                         type: 'state',
                         common: {
                             name: set,
@@ -167,7 +169,7 @@ class Frigate extends utils.Adapter {
                         },
                         native: {},
                     });
-                    await this.setForeignObjectNotExistsAsync(this.config.mqttObject + '.' + set, {
+                    await this.setForeignObjectNotExistsAsync(m_id + '.' + set, {
                         type: 'state',
                         common: {
                             name: set,
@@ -205,16 +207,13 @@ class Frigate extends utils.Adapter {
         const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
         const arrstor = JSON.stringify(extractedJSON.service.storage);
         const stor = JSON.parse(arrstor);
-        this.log.debug(JSON.stringify(stor));
-        this.log.debug(JSON.stringify(apex));
-        this.log.debug(`changed: ${obj.val}`);
         try {
             this.setState('available', { val: 'online', ack: true });
             this.setState('version', { val: version, ack: true });
             this.setState('latest_version', { val: latest, ack: true });
             this.setState('uptime', { val: uptime, ack: true });
             if (arrtemperatur[0] != '') {
-                for (let i = 0; i < arrtemperatur.length; i++) {
+                for (let i = 0; i < arrtemperatur.length - 1; i++) {
                     await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
                         type: 'state',
                         common: {
@@ -234,7 +233,7 @@ class Frigate extends utils.Adapter {
                     });
                 }
             }
-            for (let i = 0; i < arrstorage.length; i++) {
+            for (let i = 0; i < arrstorage.length - 1; i++) {
                 const sto = JSON.stringify(stor[arrstorage[i]]);
                 const st = JSON.parse(sto);
                 let sunit, tval, uval, fval;
@@ -475,19 +474,18 @@ class Frigate extends utils.Adapter {
      */
     onStateChange(id, state) {
         if (!id || !state) return;
-        const id0 = this.config.mqttObject;
-        const obj0 = id.match(id0);
+        const obj0 = id.match(m_id);
         if (obj0 != null) state.ack = false;
         if (state.ack) return;
         this.log.debug(`id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         switch (id) {
-            case id0 + '.events':
+            case m_id + '.events':
                 this.onEventChange(state);
                 break;
-            case id0 + '.stats':
+            case m_id + '.stats':
                 this.onStatsChange(state);
                 break;
-            case id0 + '.available':
+            case m_id + '.available':
                 this.setState('available', { val: state.val, ack: true });
                 break;
             default:

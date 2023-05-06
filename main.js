@@ -213,7 +213,7 @@ class Frigate extends utils.Adapter {
             this.setState('latest_version', { val: latest, ack: true });
             this.setState('uptime', { val: uptime, ack: true });
             if (arrtemperatur[0] != '') {
-                for (let i = 0; i < arrtemperatur.length - 1; i++) {
+                for (let i = 0; i < arrtemperatur.length; i++) {
                     await this.setObjectNotExistsAsync('stats' + '.temperature.' + arrtemperatur[i], {
                         type: 'state',
                         common: {
@@ -233,7 +233,7 @@ class Frigate extends utils.Adapter {
                     });
                 }
             }
-            for (let i = 0; i < arrstorage.length - 1; i++) {
+            for (let i = 0; i < arrstorage.length; i++) {
                 const sto = JSON.stringify(stor[arrstorage[i]]);
                 const st = JSON.parse(sto);
                 let sunit, tval, uval, fval;

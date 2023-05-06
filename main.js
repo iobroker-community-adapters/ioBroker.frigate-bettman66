@@ -118,7 +118,7 @@ class Frigate extends utils.Adapter {
                         role: 'switch',
                         read: true,
                         write: true,
-                        def: state.val
+                        def: 'OFF'
                     },
                     native: {},
                 });

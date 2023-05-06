@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.1.9",
+        "version": "0.2.0",
         "news": {
+            "0.2.0": {
+                "en": "add uptime and more",
+                "de": "fügen Sie Betriebszeit und mehr hinzu",
+                "ru": "добавить время безотказной работы и многое другое",
+                "pt": "adicionar tempo de atividade e muito mais",
+                "nl": "voeg uptime en meer toe",
+                "fr": "ajouter du temps de disponibilité et plus",
+                "it": "aggiungere tempo di attività e altro ancora",
+                "es": "agregar tiempo de actividad y más",
+                "pl": "dodaj czas pracy i więcej",
+                "uk": "додати час безвідмовної роботи тощо",
+                "zh-cn": "增加正常运行时间等等"
+            },
             "0.1.9": {
                 "en": "add online",
                 "de": "online hinzufügen",

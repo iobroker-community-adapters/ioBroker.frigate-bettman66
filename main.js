@@ -82,9 +82,9 @@ class Frigate extends utils.Adapter {
         const testobj = await this.getStateAsync(obj);
         this.log.debug(`onObjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         this.log.debug(`Object available: ${testobj} type: ${type}`);
+        if (type.toString() == 'string') if (state.val == 'ON') state.val = true; else if (state.val == 'OFF') state.val = false;
         if (testobj == null) {
             if (type.toString() == 'string') {
-                if (state.val == 'ON') state.val = true; else state.val = false;
                 await this.setObjectNotExistsAsync(obj, {
                     type: 'state',
                     common: {
@@ -111,11 +111,9 @@ class Frigate extends utils.Adapter {
                     native: {},
                 });
             }
-
             if (type.toString() == 'string' || type.toString() == 'number') {
                 const set = obj.replace('state', 'set');
                 if (type.toString() == 'string') {
-                    if (state.val == 'ON') state.val = true; else state.val = false;
                     await this.setObjectNotExistsAsync(set, {
                         type: 'state',
                         common: {
@@ -168,7 +166,6 @@ class Frigate extends utils.Adapter {
                 }
             }
         } else if (obj0 == null) {
-            if (type.toString() == 'string') if (state.val == 'ON') state.val = true; else state.val = false;
             this.setState(obj, { val: state.val, ack: true });
         }
     }

@@ -13,7 +13,7 @@ const utils = require('@iobroker/adapter-core');
 let weburl;
 let m_id;
 
-function seconds_to_days_hours_mins_secs_str(seconds) { // day, h, m and s
+function seconds_to_days_hours_mins_secs_str(seconds) {
     const days = Math.floor(seconds / (24 * 60 * 60));
     seconds -= days * (24 * 60 * 60);
     const hours = Math.floor(seconds / (60 * 60));
@@ -177,8 +177,6 @@ class Frigate extends utils.Adapter {
         const arrstorage = String(Object.keys(extractedJSON.service.storage)).split(',');
         const arrstor = JSON.stringify(extractedJSON.service.storage);
         const stor = JSON.parse(arrstor);
-        this.log.debug(JSON.stringify(stor));
-        this.log.debug(JSON.stringify(apex));
         this.log.debug(`changed: ${obj.val}`);
         try {
             this.setState('available', { val: 'online', ack: true });

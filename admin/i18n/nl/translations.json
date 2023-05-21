@@ -1,5 +1,8 @@
 {
+    "Frigate MQTT Object": "Fregat MQTT-object",
     "Frigate Settings": "Fregat instellingen",
     "Frigate URL": "Fregat URL",
-    "MQTT Object": "MQTT-object"
+    "Frigate Url": "Fregat URL",
+    "MQTT Object": "MQTT-object",
+    "Number of web url": "Aantal web-URL"
 }

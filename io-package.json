@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.2.1",
+        "version": "0.2.2",
         "news": {
+            "0.2.2": {
+                "en": "settings translate",
+                "de": "Einstellungen übersetzen",
+                "ru": "настройки перевести",
+                "pt": "tradução de configurações",
+                "nl": "instellingen vertalen",
+                "fr": "paramètres traduire",
+                "it": "tradurre le impostazioni",
+                "es": "la configuración se traduce",
+                "pl": "ustawienia tłumaczą",
+                "uk": "налаштування перекладу",
+                "zh-cn": "设置翻译"
+            },
             "0.2.1": {
                 "en": "add version",
                 "de": "Fassung hinzufügen",

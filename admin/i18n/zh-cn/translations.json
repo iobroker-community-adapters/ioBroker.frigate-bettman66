@@ -1,5 +1,8 @@
 {
+    "Frigate MQTT Object": "护卫舰 MQTT 对象",
     "Frigate Settings": "护卫舰设置",
     "Frigate URL": "护卫舰网址",
-    "MQTT Object": "MQTT对象"
+    "Frigate Url": "护卫舰网址",
+    "MQTT Object": "MQTT对象",
+    "Number of web url": "网址数量"
 }

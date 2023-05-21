@@ -1,5 +1,8 @@
 {
+    "Frigate MQTT Object": "Fregata Obiekt MQTT",
     "Frigate Settings": "Ustawienia fregaty",
     "Frigate URL": "Adres URL fregaty",
-    "MQTT Object": "Obiekt MQTT"
+    "Frigate Url": "Adres URL fregaty",
+    "MQTT Object": "Obiekt MQTT",
+    "Number of web url": "Numer adresu internetowego"
 }

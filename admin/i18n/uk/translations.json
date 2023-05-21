@@ -1,5 +1,8 @@
 {
+    "Frigate MQTT Object": "Фрегат MQTT Object",
     "Frigate Settings": "Налаштування фрегата",
     "Frigate URL": "URL фрегата",
-    "MQTT Object": "Об'єкт MQTT"
+    "Frigate Url": "URL-адреса фрегата",
+    "MQTT Object": "Об'єкт MQTT",
+    "Number of web url": "Номер веб-адреси"
 }

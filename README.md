@@ -31,13 +31,13 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 ## Link
 
 -   [ioBroker Forum Adapter Thread](https://forum.iobroker.net/topic/64928/test-frigate-adapter-v0-0-1-alpha)
--   [Frigate Video Project](https://frigate.video/)
+-   [Frigate Video Project](https://frigate.video)
 
 ## Changelog
 
 ### 0.2.3
 
--   (bettman66) merge pull requests
+-   (bettman66) merge pull request
 
 ### 0.2.2
 

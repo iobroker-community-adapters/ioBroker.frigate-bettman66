@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.2.3",
+        "version": "0.2.4",
         "news": {
+            "0.2.4": {
+                "en": "add v0.2.4 to npm",
+                "de": "v0.2.4 zu npm hinzufügen",
+                "ru": "добавить v0.2.4 в npm",
+                "pt": "adicione v0.2.4 ao npm",
+                "nl": "voeg v0.2.4 toe aan npm",
+                "fr": "ajouter v0.2.4 à npm",
+                "it": "aggiungi v0.2.4 a npm",
+                "es": "agregar v0.2.4 a npm",
+                "pl": "dodaj v0.2.4 do npm",
+                "uk": "додати v0.2.4 до npm",
+                "zh-cn": "将 v0.2.4 添加到 npm"
+            },
             "0.2.3": {
                 "en": "merge pull requests",
                 "de": "Pull-Anfragen zusammenführen",

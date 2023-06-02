@@ -11,6 +11,7 @@
 
 ## frigate adapter for ioBroker
 
+Frigate is an open source NVR built around real-time AI object detection.
 This adapter parses Frigate's MQTT messages and creates data objects from them
 
 ## Instructions
@@ -30,6 +31,7 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 ## Link
 
 -   [ioBroker Forum Adapter Thread](https://forum.iobroker.net/topic/64928/test-frigate-adapter-v0-0-1-alpha)
+-   [Frigate Video Project](https://frigate.video)
 
 ## Changelog
 

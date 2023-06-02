@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.2.2",
+        "version": "0.2.3",
         "news": {
+            "0.2.3": {
+                "en": "merge pull requests"
+            },
             "0.2.2": {
                 "en": "settings translate",
                 "de": "Einstellungen übersetzen",

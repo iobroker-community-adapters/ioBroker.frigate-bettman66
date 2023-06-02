@@ -35,6 +35,10 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 
 ## Changelog
 
+### 0.2.3
+
+-   (bettman66) merge pull requests
+
 ### 0.2.2
 
 -   (bettman66) settings translate

@@ -4,7 +4,17 @@
         "version": "0.2.3",
         "news": {
             "0.2.3": {
-                "en": "merge pull requests"
+                "en": "merge pull requests",
+                "de": "Pull-Anfragen zusammenführen",
+                "ru": "запросы на слияние",
+                "pt": "solicitações pull de mesclagem",
+                "nl": "pull-aanvragen samenvoegen",
+                "fr": "demandes d'extraction de fusion",
+                "it": "unire le richieste pull",
+                "es": "fusionar solicitudes de extracción",
+                "pl": "łączyć pull requesty",
+                "uk": "запити на злиття",
+                "zh-cn": "合并拉取请求"
             },
             "0.2.2": {
                 "en": "settings translate",

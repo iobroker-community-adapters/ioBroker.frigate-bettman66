@@ -42,7 +42,7 @@ class Frigate extends utils.Adapter {
      */
     async onReady() {
         // Initialize your adapter here
-        if (this.config.friurl.match('http://') == null)
+        if (this.config.friurl.match('http') == null)
             weburl = 'http://' + this.config.friurl;
         else weburl = this.config.friurl;
         m_id = this.config.mqttObject;

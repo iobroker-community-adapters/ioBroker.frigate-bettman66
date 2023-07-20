@@ -35,6 +35,10 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 
 ## Changelog
 
+### 0.2.5
+
+-   (bettman66) fix https
+
 ### 0.2.4
 
 -   (bettman66) add v0.2.4 to npm

@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.2.4",
+        "version": "0.2.5",
         "news": {
+            "0.2.5": {
+                "en": "fix https",
+                "de": "https reparieren",
+                "ru": "исправить https",
+                "pt": "corrigir https",
+                "nl": "herstel https",
+                "fr": "réparer https",
+                "it": "correggere https",
+                "es": "arreglar https",
+                "pl": "napraw https",
+                "uk": "виправити https",
+                "zh-cn": "修复https"
+            },
             "0.2.4": {
                 "en": "add v0.2.4 to npm",
                 "de": "v0.2.4 zu npm hinzufügen",

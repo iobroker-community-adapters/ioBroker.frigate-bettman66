@@ -362,6 +362,22 @@ class Frigate extends utils.Adapter {
                 });
                 this.setState(id2 + '.id', { val: afterid, ack: true });
                 //------------------------------
+                //         Cam + Event ID
+                //------------------------------
+                await this.setObjectNotExistsAsync(id2 + '.camid', {
+                    type: 'state',
+                    common: {
+                        name: 'Cam ID',
+                        type: 'string',
+                        role: 'value',
+                        read: true,
+                        write: false,
+                        def: 'none'
+                    },
+                    native: {},
+                });
+                this.setState(id2 + '.camid', { val: beforecamera + '-' + afterid, ack: true });
+                //------------------------------
                 //           WebURL
                 //------------------------------
                 const anz = this.config.webnum;

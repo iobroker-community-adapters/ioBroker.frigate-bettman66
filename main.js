@@ -377,6 +377,7 @@ class Frigate extends utils.Adapter {
                     native: {},
                 });
                 this.setState(id2 + '.camid', { val: beforecamera + '-' + afterid, ack: true });
+                this.setState('lastcamid', { val: beforecamera + '-' + afterid, ack: true });
                 //------------------------------
                 //           WebURL
                 //------------------------------

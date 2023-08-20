@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.2.5",
+        "version": "0.2.6",
         "news": {
+            "0.2.6": {
+                "en": "add camid",
+                "de": "Camid hinzufügen",
+                "ru": "добавить Камид",
+                "pt": "adicionar camid",
+                "nl": "camid toevoegen",
+                "fr": "ajouter camid",
+                "it": "aggiungi camide",
+                "es": "añadir camid",
+                "pl": "dodaj kamid",
+                "uk": "додати камід",
+                "zh-cn": "添加卡米德"
+            },
             "0.2.5": {
                 "en": "fix https",
                 "de": "https reparieren",
@@ -278,6 +291,20 @@
                 "read": true,
                 "write": false,
                 "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "lastcamid",
+            "type": "state",
+            "common": {
+                "name": "Last Cam ID",
+                "desc": "",
+                "type": "string",
+                "role": "value",
+                "read": true,
+                "write": false,
+                "def": ""
             },
             "native": {}
         },

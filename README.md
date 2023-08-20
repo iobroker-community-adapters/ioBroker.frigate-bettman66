@@ -37,6 +37,10 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 
 ### 0.2.5
 
+-   (bettman66) ad camid
+
+### 0.2.5
+
 -   (bettman66) fix https
 
 ### 0.2.4

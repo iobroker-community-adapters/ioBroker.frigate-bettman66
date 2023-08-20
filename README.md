@@ -37,7 +37,7 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 
 ### 0.2.6
 
--   (bettman66) ad camid
+-   (bettman66) add camid
 
 ### 0.2.5
 

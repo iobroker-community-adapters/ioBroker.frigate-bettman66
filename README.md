@@ -35,7 +35,7 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 
 ## Changelog
 
-### 0.2.5
+### 0.2.6
 
 -   (bettman66) ad camid
 

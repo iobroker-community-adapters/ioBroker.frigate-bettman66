@@ -82,7 +82,13 @@ class Frigate extends utils.Adapter {
         const testobj = await this.getStateAsync(obj);
         this.log.debug(`onObjectChange -> id: ${id} changed: ${state.val} (ack = ${state.ack})`);
         this.log.debug(`Object available: ${testobj} type: ${type}`);
-        if (type.toString() == 'string') if (state.val == 'ON') state.val = true; else if (state.val == 'OFF') state.val = false; else return;
+        if (type.toString() == 'string') {
+            if (state.val == 'ON') {
+                state.val = true;
+            } else if (state.val == 'OFF') {
+                state.val = false;
+            } else return;
+        }
         if (testobj == null) {
             if (type.toString() == 'string') {
                 await this.setObjectNotExistsAsync(obj, {

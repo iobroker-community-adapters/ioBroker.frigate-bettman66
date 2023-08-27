@@ -91,6 +91,7 @@ class Frigate extends utils.Adapter {
                     state.val = false;
                     break;
                 default:
+                    this.log.debug(':skip mqtt snapshot:');
                     return;
             }
         }

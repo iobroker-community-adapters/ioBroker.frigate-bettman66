@@ -318,7 +318,6 @@ class Frigate extends utils.Adapter {
         const websnap = weburl + '//api/events/' + afterid + '/snapshot.jpg';
         const webclip = weburl + '//api/events/' + afterid + '/clip.mp4';
         const bsnap = await this.getStateAsync(beforecamera + '.snapshots.state');
-        this.log.info(`bsnap: ${bsnap?.val}`);
         const bclip = await this.getStateAsync(beforecamera + '.recordings.state');
         this.log.debug(`changed: ${obj.val}`);
         try {
@@ -397,20 +396,21 @@ class Frigate extends utils.Adapter {
                 //           WebURL
                 //------------------------------
                 const anz = this.config.webnum;
-                for (let i = 0; i < anz; i++)
-                    await this.setObjectNotExistsAsync(id2 + '.web.snap.snap_' + i.toString(), {
-                        type: 'state',
-                        common: {
-                            name: 'Snapshot WebUrl ' + i.toString(),
-                            type: 'string',
-                            role: 'value',
-                            read: true,
-                            write: false,
-                            def: ''
-                        },
-                        native: {},
-                    });
-                if (bsnap?.val === true) {
+                if (bsnap?.val) {
+                    for (let i = 0; i < anz; i++)
+                        await this.setObjectNotExistsAsync(id2 + '.web.snap.snap_' + i.toString(), {
+                            type: 'state',
+                            common: {
+                                name: 'Snapshot WebUrl ' + i.toString(),
+                                type: 'string',
+                                role: 'value',
+                                read: true,
+                                write: false,
+                                def: ''
+                            },
+                            native: {},
+                        });
+
                     for (let i = anz - 1; i > -1; i--) {
                         if (i == 0) {
                             this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: websnap, ack: true });
@@ -421,20 +421,21 @@ class Frigate extends utils.Adapter {
                         }
                     }
                 }
-                for (let i = 0; i < anz; i++)
-                    await this.setObjectNotExistsAsync(id2 + '.web.clip.clip_' + i.toString(), {
-                        type: 'state',
-                        common: {
-                            name: 'Clip WebUrl ' + i.toString(),
-                            type: 'string',
-                            role: 'value',
-                            read: true,
-                            write: false,
-                            def: ''
-                        },
-                        native: {},
-                    });
-                if (bclip?.val === true) {
+                if (bclip?.val) {
+                    for (let i = 0; i < anz; i++)
+                        await this.setObjectNotExistsAsync(id2 + '.web.clip.clip_' + i.toString(), {
+                            type: 'state',
+                            common: {
+                                name: 'Clip WebUrl ' + i.toString(),
+                                type: 'string',
+                                role: 'value',
+                                read: true,
+                                write: false,
+                                def: ''
+                            },
+                            native: {},
+                        });
+
                     for (let i = anz - 1; i > -1; i--) {
                         if (i == 0) {
                             this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: webclip, ack: true });

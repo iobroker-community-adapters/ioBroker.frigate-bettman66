@@ -318,6 +318,7 @@ class Frigate extends utils.Adapter {
         const websnap = weburl + '//api/events/' + afterid + '/snapshot.jpg';
         const webclip = weburl + '//api/events/' + afterid + '/clip.mp4';
         const bsnap = await this.getStateAsync(beforecamera + '.snapshots.state');
+        this.log.info(`bsnap: ${bsnap?.val}`);
         const bclip = await this.getStateAsync(beforecamera + '.recordings.state');
         this.log.debug(`changed: ${obj.val}`);
         try {

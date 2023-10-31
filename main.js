@@ -409,7 +409,7 @@ class Frigate extends utils.Adapter {
                         },
                         native: {},
                     });
-                if (bsnap) {
+                if (bsnap?.val == true) {
                     for (let i = anz - 1; i > -1; i--) {
                         if (i == 0) {
                             this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: websnap, ack: true });
@@ -433,7 +433,7 @@ class Frigate extends utils.Adapter {
                         },
                         native: {},
                     });
-                if (bclip) {
+                if (bclip?.val == true) {
                     for (let i = anz - 1; i > -1; i--) {
                         if (i == 0) {
                             this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: webclip, ack: true });

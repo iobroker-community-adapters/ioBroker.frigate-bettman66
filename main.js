@@ -317,6 +317,8 @@ class Frigate extends utils.Adapter {
         const id2 = beforecamera + '.objects.' + beforelabel;
         const websnap = weburl + '//api/events/' + afterid + '/snapshot.jpg';
         const webclip = weburl + '//api/events/' + afterid + '/clip.mp4';
+        const bsnap = await this.getStateAsync(beforecamera + '.snapshots.state');
+        const bclip = await this.getStateAsync(beforecamera + '.recordings.state');
         this.log.debug(`changed: ${obj.val}`);
         try {
             if (eventtype == 'new') {
@@ -407,13 +409,15 @@ class Frigate extends utils.Adapter {
                         },
                         native: {},
                     });
-                for (let i = anz - 1; i > -1; i--) {
-                    if (i == 0) {
-                        this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: websnap, ack: true });
-                    } else {
-                        const str = await this.getStateAsync(id2 + '.web.snap.snap_' + (i - 1).toString());
-                        if (str != null)
-                            this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: str.val, ack: true });
+                if (bsnap) {
+                    for (let i = anz - 1; i > -1; i--) {
+                        if (i == 0) {
+                            this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: websnap, ack: true });
+                        } else {
+                            const str = await this.getStateAsync(id2 + '.web.snap.snap_' + (i - 1).toString());
+                            if (str != null)
+                                this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: str.val, ack: true });
+                        }
                     }
                 }
                 for (let i = 0; i < anz; i++)
@@ -429,13 +433,15 @@ class Frigate extends utils.Adapter {
                         },
                         native: {},
                     });
-                for (let i = anz - 1; i > -1; i--) {
-                    if (i == 0) {
-                        this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: webclip, ack: true });
-                    } else {
-                        const str = await this.getStateAsync(id2 + '.web.clip.clip_' + (i - 1).toString());
-                        if (str != null)
-                            this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: str.val, ack: true });
+                if (bclip) {
+                    for (let i = anz - 1; i > -1; i--) {
+                        if (i == 0) {
+                            this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: webclip, ack: true });
+                        } else {
+                            const str = await this.getStateAsync(id2 + '.web.clip.clip_' + (i - 1).toString());
+                            if (str != null)
+                                this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: str.val, ack: true });
+                        }
                     }
                 }
                 //------------------------------

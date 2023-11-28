@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.2.6",
+        "version": "0.2.7",
         "news": {
+            "0.2.7": {
+                "en": "missing objects bug",
+                "de": "Fehler bei fehlenden Objekten",
+                "ru": "ошибка с пропавшими объектами",
+                "pt": "bug de objetos perdidos",
+                "nl": "ontbrekende objecten bug",
+                "fr": "bug des objets manquants",
+                "it": "bug oggetti mancanti",
+                "es": "error de objetos faltantes",
+                "pl": "błąd brakujących obiektów",
+                "uk": "помилка відсутніх об'єктів",
+                "zh-cn": "缺少对象错误"
+            },
             "0.2.6": {
                 "en": "add camid",
                 "de": "Camid hinzufügen",

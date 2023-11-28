@@ -10,6 +10,7 @@
  */
 
 const utils = require('@iobroker/adapter-core');
+const { exit } = require('process');
 let weburl;
 let m_id;
 
@@ -319,6 +320,10 @@ class Frigate extends utils.Adapter {
         const webclip = weburl + '/api/events/' + afterid + '/clip.mp4';
         const bsnap = await this.getStateAsync(beforecamera + '.snapshots.state');
         const bclip = await this.getStateAsync(beforecamera + '.recordings.state');
+        if ((bsnap == null) || (bclip == null)) {
+            this.log.info('restart MQTT Broker please !!!');
+            return;
+        }
         this.log.debug(`Snap: ${bsnap.val}`);
         this.log.debug(`Clip: ${bclip.val}`);
         this.log.debug(`changed: ${obj.val}`);

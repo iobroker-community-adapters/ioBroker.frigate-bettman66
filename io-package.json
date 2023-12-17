@@ -308,6 +308,20 @@
             "native": {}
         },
         {
+            "_id": "lastidurl",
+            "type": "state",
+            "common": {
+                "name": "Last ID URL",
+                "desc": "",
+                "type": "string",
+                "role": "value",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
+        },
+        {
             "_id": "lastcamid",
             "type": "state",
             "common": {

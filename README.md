@@ -35,6 +35,10 @@ These objects can be further processed in the ioBroker, e.g. in the Vis.
 
 ## Changelog
 
+### 0.2.8
+
+-   (dragst3r) change bsnap bclip
+
 ### 0.2.7
 
 -   (bettman66) missing objects bug

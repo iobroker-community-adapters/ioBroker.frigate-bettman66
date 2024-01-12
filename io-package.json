@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "frigate",
-        "version": "0.2.7",
+        "version": "0.2.8",
         "news": {
+            "0.2.8": {
+                "en": "change bsnap bclip",
+                "de": "bsnap bclip ändern",
+                "ru": "изменить bsnap bclip",
+                "pt": "alterar bsnap bclip",
+                "nl": "wijzig bsnap bclip",
+                "fr": "changer bsnap bclip",
+                "it": "cambia bsnap bclip",
+                "es": "cambiar bsnap bclip",
+                "pl": "zmień bsnap bclip",
+                "uk": "змінити bsnap bclip",
+                "zh-cn": "更改 bsnap bclip"
+            },
             "0.2.7": {
                 "en": "missing objects bug",
                 "de": "Fehler bei fehlenden Objekten",

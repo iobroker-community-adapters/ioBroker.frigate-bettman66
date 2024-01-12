@@ -310,6 +310,7 @@ class Frigate extends utils.Adapter {
     async onEventChange(obj) {
         const extractedJSON = JSON.parse(obj.val);
         const beforecamera = extractedJSON.before.camera;
+        const before = extractedJSON.before;
         const beforelabel = extractedJSON.before.label;
         const afterid = extractedJSON.after.id;
         const topscore = extractedJSON.after.top_score;
@@ -318,8 +319,8 @@ class Frigate extends utils.Adapter {
         const id2 = beforecamera + '.objects.' + beforelabel;
         const websnap = weburl + '/api/events/' + afterid + '/snapshot.jpg';
         const webclip = weburl + '/api/events/' + afterid + '/clip.mp4';
-        const bsnap = await this.getStateAsync(beforecamera + '.snapshots.state');
-        const bclip = await this.getStateAsync(beforecamera + '.recordings.state');
+        const bsnap = before.has_snapshot;
+        const bclip = before.has_clip;
         if ((bsnap == null) || (bclip == null)) {
             this.log.info('restart MQTT Broker please !!!');
             return;
@@ -404,7 +405,7 @@ class Frigate extends utils.Adapter {
                 //           WebURL
                 //------------------------------
                 const anz = this.config.webnum;
-                if (bsnap?.val) {
+                if (bsnap == true) {
                     for (let i = 0; i < anz; i++)
                         await this.setObjectNotExistsAsync(id2 + '.web.snap.snap_' + i.toString(), {
                             type: 'state',
@@ -418,7 +419,7 @@ class Frigate extends utils.Adapter {
                             },
                             native: {},
                         });
-
+ 
                     for (let i = anz - 1; i > -1; i--) {
                         if (i == 0) {
                             this.setState(id2 + '.web.snap.snap_' + i.toString(), { val: websnap, ack: true });
@@ -429,7 +430,7 @@ class Frigate extends utils.Adapter {
                         }
                     }
                 }
-                if (bclip?.val) {
+                if (bclip == true) {
                     for (let i = 0; i < anz; i++)
                         await this.setObjectNotExistsAsync(id2 + '.web.clip.clip_' + i.toString(), {
                             type: 'state',
@@ -443,7 +444,7 @@ class Frigate extends utils.Adapter {
                             },
                             native: {},
                         });
-
+ 
                     for (let i = anz - 1; i > -1; i--) {
                         if (i == 0) {
                             this.setState(id2 + '.web.clip.clip_' + i.toString(), { val: webclip, ack: true });

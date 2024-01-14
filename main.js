@@ -10,7 +10,6 @@
  */
 
 const utils = require('@iobroker/adapter-core');
-const { exit } = require('process');
 let weburl;
 let m_id;
 
